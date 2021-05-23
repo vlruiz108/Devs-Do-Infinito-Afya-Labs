@@ -30,6 +30,9 @@
   },
   "homepage": "https://github.com/LFelipe-sb/Devs-Do-Infinito-Afya-Labs#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5"
   }
 }
