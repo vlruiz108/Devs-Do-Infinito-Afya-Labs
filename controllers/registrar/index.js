@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
             res.send('Usuário cadastrado com sucesso');
         }   
     } catch(err) {
-        res.send(err);
+        res.status(500).send(err);
     }
 });
 

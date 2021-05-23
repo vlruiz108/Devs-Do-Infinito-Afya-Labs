@@ -13,4 +13,12 @@ async function listUser() {
     return rows;
 }
 
-export default {insertUser, listUser}
+async function login(login, password_user) {
+    const conn = await database.connect();
+    const sql = 'SELECT * FROM tbl_usuarios WHERE login=? and senha=SHA2(?, 256)';
+    const dataLogin = [login, password_user];
+    const [rows] = await conn.query(sql, dataLogin);
+    return rows;
+}
+
+export default {insertUser, listUser, login}
