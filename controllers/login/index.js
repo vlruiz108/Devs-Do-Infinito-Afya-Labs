@@ -12,10 +12,9 @@ router.post('/', async (req, res) => {
   try{
     const {login, password_user} = req.body;
     const users = await db.login(login, password_user);
-    console.log(users)
     if(users.length > 0) {
       const {id_login, login} = users[0];
-      const token = jwt.sign({userId: users[0].id_usuario}, secret, {expiresIn:60 * 60 * 5});
+      const token = jwt.sign({userId: users[0].id_login}, secret, {expiresIn:60 * 60 * 5});
       global.token = {auth: true, token, id_login, login};
       res.send(global.token);
     } else {
