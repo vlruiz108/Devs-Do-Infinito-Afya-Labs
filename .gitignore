@@ -124,6 +124,7 @@ typings/
 .env
 .env.test
 .env*.local
+emailConfig.js
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

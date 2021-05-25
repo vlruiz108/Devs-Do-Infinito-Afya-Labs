@@ -5,19 +5,19 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
     try{
-        const {login, password_user, name} = req.body;
+        const {login, password_user, name, email} = req.body;
         const users = await db.listUser();
         const checkUser = users.some(item => {
-            return item.login === login;
+            return item.login === login || item.email === email;
         });
 
-        if(!login || !password_user || !name) {
-            res.send('Dados para cadastro incompletos');
+        if(!login || !password_user || !name || !email) {
+            res.send({message: 'Dados para cadastro incompletos'});
         } else if(checkUser) {
-            res.send('Login de usuário já cadastrado no sistema.');
+            res.send({message: 'Login de usuário já cadastrado no sistema.'});
         } else {
-            await db.insertUser(login, password_user, name);
-            res.send('Usuário cadastrado com sucesso');
+            await db.insertUser(login, password_user, name, email);
+            res.send({message: 'Usuário cadastrado com sucesso'});
         }   
     } catch(err) {
         res.status(500).send(err);
