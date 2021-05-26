@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS tbl_atendimentos (
   data_agendamento DATETIME NOT NULL,
   data_atendimento DATETIME NOT NULL,
   valor DECIMAL(6,2) NOT NULL,
-  atendimento_status ENUM("Agendado", "Realizado", "Cancelado") NOT NULL,
+  atendimento_status ENUM("Agendado", "Realizado", "Cancelado")DEFAULT "Agendado" NOT NULL,
   FK_id_prontuario INT NOT NULL,
   FK_id_especialista INT NOT NULL,
   CONSTRAINT FK_id_prontuario FOREIGN KEY(FK_id_prontuario)

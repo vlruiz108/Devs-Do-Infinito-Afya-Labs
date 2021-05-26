@@ -33,6 +33,7 @@ router.post('/reset', async (req, res) => {
       const newPassword = key.replace('n','@').replace('w','!').replace('i','#').replace('t','$').replace('a','*').replace('r','%');
       await db.changePassword(email, newPassword);
       await sendEmail(email, newPassword, user[0].nome);
+      console.log('teste');
       res.send({message: "Nova senha enviada para o seu e-mail"});
   } else {
       res.send({message: 'Usuario não encontrado'});
