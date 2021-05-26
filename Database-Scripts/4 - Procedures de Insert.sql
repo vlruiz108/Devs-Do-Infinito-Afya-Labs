@@ -44,13 +44,12 @@ END $$
 
 
 DELIMITER $$
-CREATE PROCEDURE sp_insertAttendance(p_data_agendamento DATE, p_data_atendimento DATE, 
-p_valor DECIMAL(6,2), p_atendimento_status ENUM("Agendado", "Realizado", "Cancelado"),
-p_FK_id_prontuario INT, p_FK_id_especialista INT)
+CREATE PROCEDURE sp_insertAttendance(p_data_agendamento DATETIME, p_data_atendimento DATETIME, 
+p_valor DECIMAL(6,2), p_FK_id_prontuario INT, p_FK_id_especialista INT)
 BEGIN
-	INSERT INTO tbl_profissoes(data_agendamento, data_atendimento, valor, 
-    atendimento_status, FK_id_prontuario, FK_id_especialista) 
-		VALUES(p_data_agendamento, p_data_atendimento, p_valor, p_atendimento_status, 
+	INSERT INTO tbl_atendimentos(data_agendamento, data_atendimento, valor, 
+    FK_id_prontuario, FK_id_especialista) 
+		VALUES(p_data_agendamento, p_data_atendimento, p_valor, 
         p_FK_id_prontuario, p_FK_id_especialista);
 END $$
 
@@ -66,6 +65,6 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE sp_insertHistoryMedRegs(p_descricao TEXT, p_FK_atendimento_historico INT)
 BEGIN
-	INSERT INTO tbl_prontuarios(descricao, FK_atendimento_historico) 
+	INSERT INTO tbl_prontuario_historicos(descricao, FK_atendimento_historico) 
 		VALUES(p_descricao, p_FK_atendimento_historico);
 END $$
