@@ -34,9 +34,9 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE sp_validateLogin(p_login VARCHAR(20), p_senha VARCHAR(64))
-BEGIN 
-	SELECT * FROM tbl_login WHERE login = p_login AND senha = p_senha;
+CREATEtbl_clientes PROCEDURE sp_login(p_login VARCHAR(64), p_senha varchar(45))
+BEGIN
+	SELECT * FROM tbl_usuarios WHERE login=p_login AND senha=SHA2(p_senha, 256);
 END $$
 
 DELIMITER $$
