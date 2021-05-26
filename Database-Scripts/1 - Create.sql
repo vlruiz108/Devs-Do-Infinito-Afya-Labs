@@ -1,4 +1,4 @@
-# DROP DATABASE afya_labs;
+DROP DATABASE afya_labs;
 -- -----------------------------------------------------
 -- Database mydb
 -- -----------------------------------------------------
@@ -80,7 +80,7 @@ CREATE INDEX email_usuario ON tbl_especialistas(email);
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS tbl_prontuarios (
   id_prontuario INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  data_abertura DATE NOT NULL DEFAULT NOW(),
+  data_abertura DATE NOT NULL,
   FK_id_cliente INT NOT NULL,
   CONSTRAINT FK_id_cliente FOREIGN KEY(FK_id_cliente)
     REFERENCES tbl_clientes(id_cliente)
@@ -109,8 +109,8 @@ CREATE INDEX data_atendimento ON tbl_atendimentos(data_atendimento);
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS tbl_prontuario_historicos (
   id_historico INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  data_historico DATE NOT NULL DEFAULT NOW(),
-  hora_historico TIME NOT NULL  DEFAULT NOW(),
+  data_historico DATE NOT NULL,
+  hora_historico TIME NOT NULL,
   descricao TEXT NOT NULL,
   FK_atendimento_historico INT NOT NULL,
   CONSTRAINT FK_prontuario_historico FOREIGN KEY(FK_atendimento_historico)

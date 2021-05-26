@@ -1,4 +1,4 @@
-tbl_usuarios#PROCEDURES DE UPDATE
+#PROCEDURES DE UPDATE
 DELIMITER $$
 CREATE PROCEDURE sp_updateUsers(p_login VARCHAR(20), p_senha VARCHAR(65), p_nome VARCHAR(45), 
 p_email VARCHAR(45), p_id_login INT)
