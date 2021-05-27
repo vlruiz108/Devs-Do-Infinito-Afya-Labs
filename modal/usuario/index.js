@@ -1,15 +1,15 @@
 import database from '../../database/connection.js';
 
-async function insertUser(login, password_user, name, email) {
+async function insertUser(user_email, user_pass, user_name) {
     const conn = await database.connect();
-    const sql = 'CALL sp_registerUsers(?, ?, ?, ?);';
-    const newUser = [login, password_user, name, email];
+    const sql = 'CALL sp_registerUsers(?, ?, ?);';
+    const newUser = [user_email, user_pass, user_name];
     await conn.query(sql, newUser);
 }
 
 async function listUser() {
     const conn = await database.connect();
-    const [rows] = await conn.query('SELECT * FROM tbl_usuarios');
+    const [rows] = await conn.query('SELECT * FROM tbl_users');
     return rows;
 }
 
@@ -23,7 +23,7 @@ async function login(login, password_user) {
 
 async function checkEmail(email) {
     const conn = await database.connect();
-    const sql = 'CALL sp_checkEmail(?)';
+    const sql = 'CALL sp_checksEmail(?)';
     const [rows] = await conn.query(sql, email);
     return rows[0];
 }

@@ -1,12 +1,12 @@
 import express from 'express';
-import register from './controllers/registrar/index.js';
+import register from './controllers/register/index.js';
 import login from './controllers/login/index.js';
-import client from './controllers/cliente/index.js';
+import client from './controllers/client/index.js';
 
 const router = express.Router();
 
-router.use('/registrar', register);
+router.use('/register', register);
 router.use('/login', login);
-router.use('/cliente', client)
+router.use('/client', client);
 
 export default router;
