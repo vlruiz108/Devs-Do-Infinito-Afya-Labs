@@ -2,7 +2,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import db from '../../modal/usuario/index.js';
-import {config} from '../../services/smtp.js';
+import {config} from '../../services/util/smtp.js';
 
 const router = express.Router();
 const secret = process.env.JWT_KEY;
