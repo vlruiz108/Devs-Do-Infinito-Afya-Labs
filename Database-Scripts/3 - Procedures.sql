@@ -114,3 +114,9 @@ CREATE PROCEDURE sp_countAttendanceForProfission()
 BEGIN
 	SELECT nome_profissao, count(*) total_atendimentos FROM vw_atendimentos_profissao GROUP BY nome_profissao ORDER BY total_atendimentos DESC;
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE sp_specialistForProfission()
+BEGIN
+	SELECT * FROM vw_especialista_profissao;
+END $$

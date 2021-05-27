@@ -12,7 +12,7 @@ CALL sp_attendanceForClient('Dyanna Ledbury');
 CALL sp_attendanceForStatus('Agendado');
 
 #Consulta dos atendimentos por: Especialista
-CALL sp_attendanceForSpecialist('Clevie Danihelka');
+CALL sp_attendanceForSpecificSpecialist('Clevie Danihelka');
 
 ############# BUSCAS IMPORTANTES #################
 #Históricos por cliente 
@@ -25,7 +25,7 @@ CALL sp_attendanceForSpecificSpecialist('Lishe Stener');
 CALL sp_historyForRegMed(28);
         
 #Especialistas por profissão
-SELECT * FROM vw_especialista_profissao;
+CALL sp_specialistForProfission();
 
 #Especialistas por profissão
 CALL sp_attendanceForSpecialist;

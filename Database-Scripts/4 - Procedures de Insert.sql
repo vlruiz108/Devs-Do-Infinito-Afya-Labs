@@ -57,14 +57,14 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE sp_insertMedReg(p_FK_id_cliente INT)
 BEGIN
-	INSERT INTO tbl_prontuarios(FK_id_cliente) 
-		VALUES(p_FK_id_cliente);
+	INSERT INTO tbl_prontuarios(data_abertura, FK_id_cliente) 
+		VALUES(NOW(), p_FK_id_cliente);
 END $$
 
 
 DELIMITER $$
 CREATE PROCEDURE sp_insertHistoryMedRegs(p_descricao TEXT, p_FK_atendimento_historico INT)
 BEGIN
-	INSERT INTO tbl_prontuario_historicos(descricao, FK_atendimento_historico) 
-		VALUES(p_descricao, p_FK_atendimento_historico);
+	INSERT INTO tbl_prontuario_historicos(data_historico, hora_historico, descricao, FK_atendimento_historico) 
+		VALUES(NOW(), NOW(), p_descricao, p_FK_atendimento_historico);
 END $$
