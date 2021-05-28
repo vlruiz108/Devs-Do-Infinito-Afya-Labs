@@ -1,6 +1,6 @@
 import express from 'express';
 import {body, validationResult} from 'express-validator';
-import db from '../../modal/usuario/index.js';
+import db from '../../modal/user/index.js';
 
 const router = express.Router();
 
