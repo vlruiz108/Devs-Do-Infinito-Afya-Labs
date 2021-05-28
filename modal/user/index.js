@@ -13,10 +13,18 @@ async function listUser() {
     return rows;
 }
 
-async function login(login, password_user) {
+async function checkSameEmail(email, id_login) {
+    const conn = await database.connect();
+    const sql = 'SELECT * FROM tbl_users WHERE user_email = ? AND id_login = ?';
+    const dataUser = [email, id_login];
+    const [rows] = await conn.query(sql, dataUser);
+    return rows;
+}
+
+async function login(user_email, user_pass) {
     const conn = await database.connect();
     const sql = 'CALL sp_login(?, ?)';
-    const dataLogin = [login, password_user];
+    const dataLogin = [user_email, user_pass];
     const [rows] = await conn.query(sql, dataLogin);
     return rows[0];
 }
@@ -42,4 +50,4 @@ async function updateUser(user_email, user_pass, user_name, id_login) {
     await conn.query(sql, dataNewPass);
 }
 
-export default {insertUser, listUser, login, checkEmail, changePassword, updateUser}
+export default {insertUser, listUser, login, checkEmail, changePassword, updateUser, checkSameEmail}

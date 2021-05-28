@@ -1,39 +1,47 @@
 import express from 'express';
-import jwt from 'jsonwebtoken';
 import db from '../../modal/user/index.js';
-import {sendEmail} from '../../services/util/sendEmail.js';
+import {sendEmail, generatePassword, generateToken} from '../../services/util/userFeatures.js';
+import {body, validationResult} from 'express-validator';
 
 const router = express.Router();
-const secret = process.env.JWT_KEY;
 
-router.post('/', async (req, res) => {
-  try{
-    const {login, password_user} = req.body;
-    const users = await db.login(login, password_user);
+router.post('/', [
+  body('user_email').isEmail().withMessage('Informe um e-mail válido.'),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(400).send({erros: errors.array()});
+  } 
+
+  const {user_email, user_pass} = req.body;
+  // try{
+    const users = await db.login(user_email, user_pass);
     if(users.length > 0) {
-      const {id_login, login} = users[0];
-      const token = jwt.sign({userId: users[0].id_login}, secret, {expiresIn:60 * 60 * 5});
-      global.token = {auth: true, token, id_login, login};
-      res.send(global.token);
+      const {id_login, user_name} = users[0];
+      const token = generateToken(id_login, user_name);
+      res.status(200).send({message: 'Login efetuado com sucesso', token});
     } else {
-      res.send({message: 'Login incorreto'});
+      res.status(404).send({message: 'Login incorreto'});
     }
-  } catch(err) {
-    res.send(err);
-  }
+  // } catch(err) {
+  //   res.status(500).send(err);
+  // }
 });
 
 router.post('/reset', async (req, res) => {
   const {user_email} = req.body;
-  const user = await db.checkEmail(user_email);
-  if(user.length > 0) {
-      const key = (Math.random() + 1).toString(36).substring(2).substring(0,10);
-      const newPassword = key.replace('n','@').replace('w','!').replace('i','#').replace('t','$').replace('a','*').replace('r','%');
+  try{
+    const user = await db.checkEmail(user_email);
+    if(user.length > 0) {
+      const newPassword = generatePassword();
       await db.changePassword(user_email, newPassword);
       sendEmail(user_email, newPassword, user[0].user_name);
-      res.send({message: "Nova senha enviada para o seu e-mail"});
-  } else {
-      res.send({message: 'Usuario não encontrado'});
+      res.status(200).send({message: "Nova senha enviada para o seu e-mail"});
+    } else {
+      res.status(404).send({message: 'Usuario não encontrado'});
+    }
+  } catch(err) {
+    res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
   }
 });
 
