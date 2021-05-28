@@ -36,8 +36,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.6.0"
-  }, 
+  },
   "devDependencies": {
-  "nodemon": "^2.0.7"
-}
+    "nodemon": "^2.0.7"
+  }
 }
