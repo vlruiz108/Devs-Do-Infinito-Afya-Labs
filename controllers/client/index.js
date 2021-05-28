@@ -13,6 +13,7 @@ router.post('/', [
         if (!blood_types_allow.includes(blood)){
             return Promise.reject('Tipo sanguíneo inválido');
         }
+        return true;
     })
 ], async (req,res) => {
     const errors = validationResult(req);
@@ -31,4 +32,4 @@ export default router;
 //uf tamanho=2 e se é valido (mão)
 //phone tamanho=13
 //cellphone = 13-14
-//blood tam= 2-3 e se está no conjunto(mão)
+//blood tam= 2-3 
