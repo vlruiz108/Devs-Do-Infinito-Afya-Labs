@@ -35,4 +35,11 @@ async function changePassword(user_email, newPassword) {
     await conn.query(sql, dataNewPass);
 }
 
-export default {insertUser, listUser, login, checkEmail, changePassword}
+async function updateUser(user_email, user_pass, user_name, id_login) {
+    const conn = await database.connect();
+    const sql = 'CALL sp_updateUsers(?, ?, ?, ?)';
+    const dataNewPass = [user_email, user_pass, user_name, id_login];
+    await conn.query(sql, dataNewPass);
+}
+
+export default {insertUser, listUser, login, checkEmail, changePassword, updateUser}
