@@ -1,7 +1,9 @@
 import nodemailer from 'nodemailer';
 import {config} from './smtp.js';
+import jwt from 'jsonwebtoken';
 
 const transporter = nodemailer.createTransport(config);
+const secret = process.env.JWT_KEY;
 
 function sendEmail(email, newPassword, nome) {
   transporter.sendMail({
@@ -21,4 +23,14 @@ function sendEmail(email, newPassword, nome) {
   });
 }
 
-export {sendEmail};
+function generatePassword() {
+  const key = (Math.random() + 1).toString(36).substring(2).substring(0,10);
+  const newPassword = key.replace('n','@').replace('w','!').replace('i','#').replace('t','$').replace('a','*').replace('r','%');
+  return newPassword
+}    
+
+function generateToken(id_login, user_name) {
+  return jwt.sign({infoUser: {id_login, userName: user_name}}, secret, {expiresIn: 60 * 60 * 5});
+}
+
+export {sendEmail, generatePassword, generateToken};
