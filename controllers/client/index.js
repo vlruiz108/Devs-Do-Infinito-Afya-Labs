@@ -30,7 +30,7 @@ router.post('/', [
 
 export default router;
 
-
+// VALIDAÇÕES A FAZER!
 // TODOS: vazio
 //uf tamanho=2 e se é valido (mão)
 // cpf duplicado usar custom e bater no DB
