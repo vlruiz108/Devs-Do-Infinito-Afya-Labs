@@ -21,17 +21,17 @@ async function login(login, password_user) {
     return rows[0];
 }
 
-async function checkEmail(email) {
+async function checkEmail(user_email) {
     const conn = await database.connect();
-    const sql = 'CALL sp_checksEmail(?)';
-    const [rows] = await conn.query(sql, email);
+    const sql = 'CALL sp_checkEmail(?)';
+    const [rows] = await conn.query(sql, user_email);
     return rows[0];
 }
 
-async function changePassword(email, newPassword) {
+async function changePassword(user_email, newPassword) {
     const conn = await database.connect();
     const sql = 'CALL sp_changePassword(?, ?)';
-    const dataNewPass = [newPassword, email];
+    const dataNewPass = [newPassword, user_email];
     await conn.query(sql, dataNewPass);
 }
 
