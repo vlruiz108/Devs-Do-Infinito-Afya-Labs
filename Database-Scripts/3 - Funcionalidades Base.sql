@@ -41,13 +41,13 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE sp_insertSpecialist(p_zipe_code int, p_street VARCHAR(45), p_number VARCHAR(10), 
 	p_district VARCHAR(45), p_locale VARCHAR(45), p_uf VARCHAR(2),
-    p_register VARCHAR(11), p_nome VARCHAR(45), p_phone VARCHAR(45), 
+    p_register VARCHAR(11), p_specialist_name VARCHAR(45), p_phone VARCHAR(45), 
 	p_cellphone VARCHAR(45), p_email VARCHAR(45), p_FK_id_profession INT)    
 BEGIN
 	INSERT INTO tbl_address(zipe_code, street, number, district, locale, uf)
 		VALUES(p_zipe_code, p_street, p_number, p_district, p_locale, p_uf);
 	INSERT INTO tbl_specialists(register, specialist_name, phone, cellphone, email, FK_id_address, FK_id_profession)
-		VALUES(p_register, p_nome, p_phone, p_cellphone, p_email, 
+		VALUES(p_register, p_specialist_name, p_phone, p_cellphone, p_email, 
         (SELECT max(id_address) FROM tbl_address), p_FK_id_profession);
 END $$
 
