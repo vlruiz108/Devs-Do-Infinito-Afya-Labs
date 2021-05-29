@@ -2,29 +2,28 @@
 DELIMITER $$
 CREATE PROCEDURE sp_changePassword(p_user_pass VARCHAR(64), p_email varchar(45))
 BEGIN
-	UPDATE tbl_users SET user_pass=SHA2(p_user_pass, 256) WHERE email=p_email;
+	UPDATE tbl_users SET user_pass=SHA2(p_user_pass, 256) WHERE user_email=p_email;
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE sp_login(p_login VARCHAR(64), p_user_pass varchar(45))
+CREATE PROCEDURE sp_login(p_user_email VARCHAR(64), p_user_pass varchar(45))
 BEGIN
-	SELECT * FROM tbl_users WHERE login=p_login AND user_pass=SHA2(p_user_pass, 256);
+	SELECT * FROM tbl_users WHERE user_email=p_user_email AND user_pass=SHA2(p_user_pass, 256);
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE sp_checkEmail(p_email VARCHAR(45))
+CREATE PROCEDURE sp_checkEmail(p_user_email VARCHAR(45))
 BEGIN
-	SELECT * FROM tbl_users WHERE email=p_email;
+	SELECT * FROM tbl_users WHERE user_email=p_user_email;
 END $$
 
 #PROCEDURES DE INSERTS
 DELIMITER $$
-CREATE PROCEDURE sp_registerUsers(p_login VARCHAR(20), p_user_pass VARCHAR(65), p_nome VARCHAR(45), p_email VARCHAR(45))
+CREATE PROCEDURE sp_registerUsers(p_email VARCHAR(45), p_user_pass VARCHAR(65), p_nome VARCHAR(45))
 BEGIN
 	INSERT INTO tbl_users(user_email, user_pass, user_name) 
 		VALUES(p_email, SHA2(p_user_pass, 256), p_nome);
 END $$
-
 
 DELIMITER $$
 CREATE PROCEDURE sp_insertClient(p_zipe_code int, p_street VARCHAR(45), p_number VARCHAR(10), 
@@ -39,7 +38,6 @@ BEGIN
         (SELECT max(id_address) FROM  tbl_address));
 END $$
 
-
 DELIMITER $$
 CREATE PROCEDURE sp_insertSpecialist(p_zipe_code int, p_street VARCHAR(45), p_number VARCHAR(10), 
 	p_district VARCHAR(45), p_locale VARCHAR(45), p_uf VARCHAR(2),
@@ -52,7 +50,6 @@ BEGIN
 		VALUES(p_register, p_nome, p_phone, p_cellphone, p_email, 
         (SELECT max(id_address) FROM tbl_address), p_FK_id_profession);
 END $$
-
 
 DELIMITER $$
 CREATE PROCEDURE sp_insertProfission(p_nome VARCHAR(45))
@@ -87,23 +84,22 @@ END $$
 
 #PROCEDURES DE UPDATE
 DELIMITER $$
-CREATE PROCEDURE sp_updateUsers(p_login VARCHAR(20), p_user_pass VARCHAR(65), p_nome VARCHAR(45), 
-p_email VARCHAR(45), p_id_login INT)
+CREATE PROCEDURE sp_updateUsers(p_user_email VARCHAR(45), p_user_pass VARCHAR(65), p_user_name VARCHAR(45), p_id_login INT)
 BEGIN
-	UPDATE tbl_users SET login = p_login, user_pass = SHA2(p_user_pass, 256), nome = p_nome, 
-    email = p_email WHERE id_login = p_id_login; 
+	UPDATE tbl_users SET user_email = p_user_email, user_pass = SHA2(p_user_pass, 256), user_name = p_user_name
+		WHERE id_login = p_id_login; 
 END $$
 
 DELIMITER $$
 CREATE PROCEDURE sp_updateClient(p_zipe_code int, p_street VARCHAR(45), p_number VARCHAR(10), 
 	p_district VARCHAR(45), p_locale VARCHAR(45), p_uf VARCHAR(2), p_id_address INT, 
-    p_cpf VARCHAR(11), p_nome VARCHAR(45), p_phone VARCHAR(45), p_cellphone VARCHAR(45), 
+    p_cpf VARCHAR(11), p_client_name VARCHAR(45), p_phone VARCHAR(45), p_cellphone VARCHAR(45), 
     p_email VARCHAR(45), p_blood_type ENUM("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"),
     p_id_client INT) 
 BEGIN
 	UPDATE tbl_address SET zipe_code = p_zipe_code, street = p_street, number = p_number, 
     district = p_district, locale = p_locale, uf = p_uf WHERE id_address = p_id_address;
-	UPDATE tbl_clients SET cpf = p_cpf, nome = p_nome, phone = p_phone, cellphone = p_cellphone,
+	UPDATE tbl_clients SET cpf = p_cpf, client_name = p_client_name, phone = p_phone, cellphone = p_cellphone,
     email = p_email, blood_type = p_blood_type, FK_id_address = p_id_address 
     WHERE id_client = p_id_client;
 END $$
