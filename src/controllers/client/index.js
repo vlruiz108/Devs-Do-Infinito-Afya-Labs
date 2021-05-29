@@ -120,4 +120,19 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id_client', async (req, res) => {
+    const clients = await db.listClient();
+    const {id_client} = req.params;
+    const client = clients.find(item => {
+        if (item.id_client == id_client){
+            return item;
+        }
+    })
+    if (!!client){
+        return res.status(200).send(client);
+    }else{
+        return res.status(404).send({message: 'Cliente não encontrado'});
+    }
+});
+
 export default router;
