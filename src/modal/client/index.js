@@ -7,4 +7,10 @@ async function insertClient(zip_code, street, number, district, locale, uf, cpf,
     await conn.query(sql, dataNewClient);
 }
 
-export default {insertClient}
+async function listClient() {
+    const conn = await database.connect();
+    const [rows] = await conn.query('SELECT * FROM tbl_clients');
+    return rows;
+}
+
+export default {insertClient, listClient}
