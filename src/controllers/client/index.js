@@ -4,12 +4,27 @@ import {body, validationResult} from 'express-validator';
 import {verifyJWT} from '../../middlewares/jwt.js'
 
 const router = express.Router();
-router.post('/', verifyJWT, [
+// router.post('/', verifyJWT, [
+router.post('/', [
     body('zip_code').isLength({min: 8, max: 8}).withMessage('CEP inválido'),
     body('zip_code').isNumeric().withMessage('Entre com um valor numérico de CEP'),
+    body('street').isLength({min: 1}).withMessage('Endereço vazio'),
+    body('number').isLength({min: 1}).withMessage('Sem número de endereço'),
+    body('district').isLength({min: 1}).withMessage('Bairro vazio'),
+    body('locale').isLength({min: 1}).withMessage('Cidade vazia'),
+    body('uf').custom(uf => {
+        const uf_allow = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
+        if (!uf_allow.includes(uf)){
+            return Promise.reject('UF inválida');
+        }
+        return true;
+    }),
+    body('cpf').isLength({min: 11, max: 11}).withMessage('CPF inválido'),
+    body('cpf').isNumeric().withMessage('Entre com um valor numérico de CPF'),
+    body('name').isLength({min: 1}).withMessage('Nome vazio'),
+    body('phone').isLength({min:13 , max:13}).withMessage('Telefone fixo inválido'),
+    body('cellphone').isLength({min:13 , max:14}).withMessage('Celular inválido'),
     body('email').isEmail().withMessage('Entre com um email válido'),
-    body('uf').isLength({min:2 , max:2}).withMessage('UF inválida'),
-    body('blood_type').isLength({min:2 , max:3}).withMessage('Tipo sanguíneo inexistente'),
     body('blood_type').custom(blood => {
         const blood_types_allow = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
         if (!blood_types_allow.includes(blood)){
@@ -34,8 +49,5 @@ router.post('/', verifyJWT, [
 export default router;
 
 // VALIDAÇÕES A FAZER!
-// TODOS: vazio e se é numerico
-//uf e se é valido (mão)
 // cpf duplicado usar custom e bater no DB
-//phone tamanho=13
-//cellphone = 13-14
+// olhar email, cell e tell para fazer de forma que todos possa ir juntos
