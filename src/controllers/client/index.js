@@ -111,6 +111,13 @@ router.put('/', [
     }
 });
 
+router.get('/', async (req, res) => {
+    const clients = await db.listClient();
+    if (clients.length > 0){
+        return res.status(200).send(clients);
+    }else{
+        return res.status(404).send({message: 'Sem dados cadastrados'});
+    }
+});
+
 export default router;
-
-
