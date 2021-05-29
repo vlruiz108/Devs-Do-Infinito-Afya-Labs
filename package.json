@@ -1,6 +1,7 @@
 {
   "name": "afya-labs",
   "version": "1.0.0",
+  "type": "module",
   "description": "Backend construido em Node.js para criação de API rest para um projeto de sistema de atendimento medico como desafio final da afya-labs em parceria com a Gama Academy",
   "main": "index.js",
   "scripts": {
