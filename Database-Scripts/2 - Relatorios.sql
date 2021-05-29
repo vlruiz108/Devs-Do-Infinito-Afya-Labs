@@ -31,6 +31,10 @@ SELECT a.id_attendance, a.schedule_date, a.attendance_date, a.attendance_value,
 	a.attendance_status, c.profession_name FROM tbl_attendances a
 		JOIN tbl_specialists b ON a.FK_id_specialist = b.id_specialist 
         JOIN tbl_professions c ON b.FK_id_profession = c.id_profession;
+        
+CREATE VIEW vw_list_clients AS 
+SELECT * FROM tbl_clients
+	JOIN tbl_address ON tbl_clients.FK_id_address = tbl_address.id_address; 
 
 #Procedures dos relatorios
 DELIMITER $$

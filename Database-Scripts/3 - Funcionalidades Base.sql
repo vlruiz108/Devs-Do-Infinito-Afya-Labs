@@ -93,13 +93,13 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE sp_updateClient(p_zipe_code int, p_street VARCHAR(45), p_number VARCHAR(10), 
 	p_district VARCHAR(45), p_locale VARCHAR(45), p_uf VARCHAR(2), p_id_address INT, 
-    p_cpf VARCHAR(11), p_nome VARCHAR(45), p_phone VARCHAR(45), p_cellphone VARCHAR(45), 
+    p_cpf VARCHAR(11), p_client_name VARCHAR(45), p_phone VARCHAR(45), p_cellphone VARCHAR(45), 
     p_email VARCHAR(45), p_blood_type ENUM("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"),
     p_id_client INT) 
 BEGIN
 	UPDATE tbl_address SET zipe_code = p_zipe_code, street = p_street, number = p_number, 
     district = p_district, locale = p_locale, uf = p_uf WHERE id_address = p_id_address;
-	UPDATE tbl_clients SET cpf = p_cpf, nome = p_nome, phone = p_phone, cellphone = p_cellphone,
+	UPDATE tbl_clients SET cpf = p_cpf, client_name = p_client_name, phone = p_phone, cellphone = p_cellphone,
     email = p_email, blood_type = p_blood_type, FK_id_address = p_id_address 
     WHERE id_client = p_id_client;
 END $$
