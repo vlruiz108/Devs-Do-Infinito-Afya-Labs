@@ -4,6 +4,7 @@ import {body, validationResult} from 'express-validator';
 import {verifyJWT} from '../../middlewares/jwt.js'
 
 const router = express.Router();
+
 // router.post('/', verifyJWT, [
 router.post('/', [
     body('zip_code').isLength({min: 8, max: 8}).withMessage('CEP inválido'),
@@ -21,6 +22,13 @@ router.post('/', [
     }),
     body('cpf').isLength({min: 11, max: 11}).withMessage('CPF inválido'),
     body('cpf').isNumeric().withMessage('Entre com um valor numérico de CPF'),
+    body('cpf').custom(async (cpf_input) => {   
+        const clients = await db.listClient();
+        const checkCPF = clients.some(item => {
+            return item.cpf === cpf_input;
+        });
+        if(checkCPF) return Promise.reject('CPF já cadastrado no sistema.');
+    }),
     body('name').isLength({min: 1}).withMessage('Nome vazio'),
     body('phone').isLength({min:13 , max:13}).withMessage('Telefone fixo inválido'),
     body('cellphone').isLength({min:13 , max:14}).withMessage('Celular inválido'),
@@ -45,6 +53,7 @@ router.post('/', [
         res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
     }
 });
+
 
 export default router;
 
