@@ -1,12 +1,15 @@
 import express from 'express';
 import db from '../../modal/client/index.js'
 import {body, validationResult} from 'express-validator';
+import {verifyJWT} from '../../middlewares/jwt.js'
 
 const router = express.Router();
-router.post('/', [
+router.post('/', verifyJWT, [
     body('zip_code').isLength({min: 8, max: 8}).withMessage('CEP inválido'),
     body('zip_code').isNumeric().withMessage('Entre com um valor numérico de CEP'),
     body('email').isEmail().withMessage('Entre com um email válido'),
+    body('uf').isLength({min:2 , max:2}).withMessage('UF inválida'),
+    body('blood_type').isLength({min:2 , max:3}).withMessage('Tipo sanguíneo inexistente'),
     body('blood_type').custom(blood => {
         const blood_types_allow = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
         if (!blood_types_allow.includes(blood)){
@@ -32,8 +35,7 @@ export default router;
 
 // VALIDAÇÕES A FAZER!
 // TODOS: vazio e se é numerico
-//uf tamanho=2 e se é valido (mão)
+//uf e se é valido (mão)
 // cpf duplicado usar custom e bater no DB
 //phone tamanho=13
 //cellphone = 13-14
-//blood tam= 2-3 
