@@ -1,4 +1,4 @@
-import database from '../../database/connection.js';
+import database from '../../repository/connection.js';
 
 async function insertUser(user_email, user_pass, user_name) {
     const conn = await database.connect();
