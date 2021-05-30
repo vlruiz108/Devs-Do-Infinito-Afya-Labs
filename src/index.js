@@ -5,6 +5,12 @@ const app = express();
 
 app.use(express.json());
 app.use('/', routes);
+app.get('/', (req, res) => {
+    res.send({
+        message: 'Welcome to AGmed - Afya-Labs',
+        doc: 'https://devs-agmed-afya.herokuapp.com/docs' 
+    });
+});
 
 const PORT = process.env.PORT || 3001;
 

@@ -40,7 +40,6 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.6.0",
-    "socksjs": "^0.5.0",
     "sucrase": "^3.18.1"
   },
   "devDependencies": {
