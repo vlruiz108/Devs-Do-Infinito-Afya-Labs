@@ -14,7 +14,7 @@ router.post('/', [
   } 
 
   const {user_email, user_pass} = req.body;
-  // try{
+  try{
     const users = await db.login(user_email, user_pass);
     if(users.length > 0) {
       const {id_login, user_name} = users[0];
@@ -23,9 +23,9 @@ router.post('/', [
     } else {
       res.status(404).send({message: 'Login incorreto'});
     }
-  // } catch(err) {
-  //   res.status(500).send(err);
-  // }
+  } catch(err) {
+    res.status(500).send(err);
+  }
 });
 
 router.post('/reset', async (req, res) => {

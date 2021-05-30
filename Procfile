@@ -1,1 +1,1 @@
-web: node -r dotenv/config --experimental-modules index.js
+web: node dist/index.js
