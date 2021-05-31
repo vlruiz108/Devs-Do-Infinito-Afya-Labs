@@ -118,9 +118,9 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE sp_updateProfission(p_nome VARCHAR(45), p_id_profession INT)
+CREATE PROCEDURE sp_updateProfission(p_profession_name VARCHAR(45), p_id_profession INT)
 BEGIN
-	UPDATE tbl_professions SET nome = p_nome WHERE id_profession = p_id_profession;
+	UPDATE tbl_professions SET profession_name = p_profession_name WHERE id_profession = p_id_profession;
 END $$
 
 DELIMITER $$
