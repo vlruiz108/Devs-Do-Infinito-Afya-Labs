@@ -69,10 +69,34 @@ router.put('/', [
     try{
         const id_address = specialist.id_address;
         const id_specialist = specialist.id_specialist;
-        await db.insertSpecialist(zip_code, street, number, district, locale, uf, id_address, register, specialist_name, phone, cellphone, email, zip_code, street, number, district, locale, uf, id_address, register, specialist_name, phone, cellphone, email, FK_id_profession, id_specialist);
-        res.status(201).send({message: 'Cadastro de especialista realizado com sucesso!'});
+        await db.updateSpecialist(zip_code, street, number, district, locale, uf, id_address, register, specialist_name, phone, cellphone, email, zip_code, street, number, district, locale, uf, id_address, register, specialist_name, phone, cellphone, email, FK_id_profession, id_specialist);
+        res.status(201).send({message: 'Cadastro de especialista alterado com sucesso!'});
     }catch(err){
         res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
+    }
+});
+
+router.get('/', async (req, res) => {
+    const specialists = await db.listSpecialist();
+    if (specialists.length > 0){
+        return res.status(200).send(specialists);
+    }else{
+        return res.status(404).send({message: 'Sem dados cadastrados'});
+    }
+});
+
+router.get('/:id_specialist', async (req, res) => {
+    const specialists = await db.listSpecialist();
+    const {id_specialist} = req.params;
+    const specialist = specialists.find(item => {
+        if (item.id_specialist == id_specialist){
+            return item;
+        }
+    })
+    if (!!specialist){
+        return res.status(200).send(specialist);
+    }else{
+        return res.status(404).send({message: 'Especialista não encontrado'});
     }
 });
 
