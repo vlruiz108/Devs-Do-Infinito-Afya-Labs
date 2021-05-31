@@ -36,6 +36,11 @@ CREATE VIEW vw_list_clients AS
 SELECT * FROM tbl_clients
 	JOIN tbl_address ON tbl_clients.FK_id_address = tbl_address.id_address; 
 
+CREATE VIEW vw_list_specialists AS
+SELECT * FROM tbl_specialists
+	JOIN tbl_address ON tbl_specialists.FK_id_address = tbl_address.id_address
+    JOIN tbl_professions ON tbl_specialists.FK_id_profession = tbl_professions.id_profession;
+
 #Procedures dos relatorios
 DELIMITER $$
 CREATE PROCEDURE sp_attendanceForSchedule(p_date_schedule DATE)
