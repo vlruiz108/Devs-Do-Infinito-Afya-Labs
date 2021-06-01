@@ -106,8 +106,8 @@ CREATE INDEX attendance_date ON tbl_attendances(attendance_date);
 -- -----------------------------------------------------
 -- Table tbl_history_med_regs
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS tbl_history_med_regs (
-  id_history INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS tbl_historic_med_regs (
+  id_historic INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   date_med_reg DATE NOT NULL,
   time_med_reg TIME NOT NULL,
   description TEXT NOT NULL,
