@@ -43,7 +43,7 @@ router.put('/', [
   try {
     const {profession_name, id_profession} = req.body;
     await db.updateProfession(profession_name, id_profession);
-    res.status(201).send({message: 'Profissão atualizada com sucesso.'});
+    res.status(200).send({message: 'Profissão atualizada com sucesso.'});
   } catch(err) {
     res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
   }
