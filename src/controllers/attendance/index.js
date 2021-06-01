@@ -63,4 +63,28 @@ router.put('/', [
     }
 });
 
+router.get('/', async (req, res) => {
+    const attendances = await db.listAttendance();
+    if (attendances.length > 0){
+        return res.status(200).send(attendances);
+    }else{
+        return res.status(404).send({message: 'Sem dados cadastrados'});
+    }
+});
+
+router.get('/:id_attendance', async (req, res) => {
+    const attendances = await db.listAttendance();
+    const {id_attendance} = req.params;
+    const attendance = attendances.find(item => {
+        if (item.id_attendance == id_attendance){
+            return item;
+        }
+    })
+    if (!!attendance){
+        return res.status(200).send(attendance);
+    }else{
+        return res.status(404).send({message: 'Atendimento não encontrado'});
+    }
+});
+
 export default router;
