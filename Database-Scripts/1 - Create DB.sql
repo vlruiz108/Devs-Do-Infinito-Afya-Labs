@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS tbl_history_med_regs (
   date_med_reg DATE NOT NULL,
   time_med_reg TIME NOT NULL,
   description TEXT NOT NULL,
-	FK_history_med_regs INT NOT NULL,
-  CONSTRAINT FK_history_med_regs FOREIGN KEY(FK_history_med_regs)
+	FK_id_attendances INT NOT NULL,
+  CONSTRAINT FK_id_attendances FOREIGN KEY(FK_id_attendances)
     REFERENCES tbl_attendances(id_attendance)
 );

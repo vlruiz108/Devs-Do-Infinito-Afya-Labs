@@ -70,7 +70,7 @@ router.put('/', [
         const id_address = specialist.id_address;
         const id_specialist = specialist.id_specialist;
         await db.updateSpecialist(zip_code, street, number, district, locale, uf, id_address, register, specialist_name, phone, cellphone, email, zip_code, street, number, district, locale, uf, id_address, register, specialist_name, phone, cellphone, email, FK_id_profession, id_specialist);
-        res.status(201).send({message: 'Cadastro de especialista alterado com sucesso!'});
+        res.status(201).send({message: `Cadastro de especialista alterado com sucesso!`});
     }catch(err){
         res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
     }
