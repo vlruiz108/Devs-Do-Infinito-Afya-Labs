@@ -60,12 +60,12 @@ END $$
 
 DELIMITER $$
 CREATE PROCEDURE sp_insertAttendance(p_schedule_date DATETIME, p_attendance_date DATETIME, 
-p_attendance_value DECIMAL(6,2), p_FK_id_med_reg INT, p_FK_id_specialist INT)
+p_attendance_value DECIMAL(6,2), p_attendance_status ENUM("AGENDADO", "REALIZADO", "CANCELADO"), p_FK_id_med_reg INT, p_FK_id_specialist INT)
 BEGIN
 	INSERT INTO tbl_attendances(schedule_date, attendance_date, attendance_value, 
-    FK_id_med_reg, FK_id_specialist) 
+    attendance_status, FK_id_med_reg, FK_id_specialist) 
 		VALUES(p_schedule_date, p_attendance_date, p_attendance_value, 
-        p_FK_id_med_reg, p_FK_id_specialist);
+        p_attendance_status, p_FK_id_med_reg, p_FK_id_specialist);
 END $$
 
 DELIMITER $$
