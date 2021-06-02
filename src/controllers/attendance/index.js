@@ -6,8 +6,11 @@ import {verifyJWT} from '../../middlewares/jwt.js'
 const router = express.Router();
 
 router.post('/', [
-    body('schedule_date').isDate().withMessage('Entra com o formato data para a data de agendamento'),
-    body('attendance_date').isDate().withMessage('Entra com o formato data para a data do atendimento'),
+    body('attendance_date').custom(date => {
+        const pattern = /^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
+        if(!date.match(pattern)) return Promise.reject('A data do atendimento deve estar no formato yyyy:mm:dd hh:mm:ss');
+        return true;
+      }),
     body('attendance_value').isNumeric().withMessage('Entre com um valor numérico para o attendance_value'),
     body('attendance_value').isLength({min: 1}).withMessage('Attendance_value vazio'),
     body('attendance_status').custom(status => {
