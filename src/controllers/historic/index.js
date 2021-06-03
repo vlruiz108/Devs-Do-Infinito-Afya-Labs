@@ -41,12 +41,17 @@ router.put('/', [
 });
 
 router.get('/', async (req, res) => {
-  const historic = await db.updateHistoric();
-    if (historic.length > 0){
-        return res.status(200).send(historic);
-    }else{
-        return res.status(404).send({message: 'Sem dados cadastrados para este paciente.'});
-    }
+  try {
+    const historic = await db.listAllHistorics();
+      if (historic.length > 0){
+          return res.status(200).send(historic);
+      }else{
+          return res.status(404).send({message: 'Sem dados cadastrados para este paciente.'});
+      }
+  } catch(err) {
+    res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
+  }
 });
+
 
 export default router;
