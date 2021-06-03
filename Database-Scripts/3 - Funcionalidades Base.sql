@@ -147,8 +147,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE sp_updateHistoryMedRegs(p_description TEXT, p_FK_atendimento_historico INT, p_id_history INT)
 BEGIN
-	UPDATE tbl_historic_med_regs SET description = p_description, FK_atendimento_historico = p_FK_atendimento_historico
-		WHERE id_historic = p_id_historic;
+	UPDATE tbl_historic_med_regs SET description = p_description WHERE id_historic = p_id_historic;
 END $$
 
 DELIMITER $$
