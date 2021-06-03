@@ -16,8 +16,15 @@ async function updateHistoric(description, id_historic){
 
 async function listAllHistorics(){
     const conn = await database.connect();
-    const [rows] = await conn.query('select * from tbl_historic_med_regs');
+    const [rows] = await conn.query('SELECT * FROM tbl_historic_med_regs');
     return rows;
 }
 
-export default {insertHistoric, updateHistoric, listAllHistorics}
+async function listSpecificHistorics(FK_id_attendances){
+    const conn = await database.connect();
+    const sql = 'SELECT * FROM tbl_historic_med_regs WHERE FK_id_attendances = ?';
+    const [rows] = await conn.query(sql, FK_id_attendances);
+    return rows;
+}
+
+export default {insertHistoric, updateHistoric, listAllHistorics, listSpecificHistorics}
