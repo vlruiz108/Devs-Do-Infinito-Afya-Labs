@@ -1,6 +1,7 @@
 import express from 'express';
 import db from '../../modal/client/index.js'
 import {body, validationResult} from 'express-validator';
+import { cpf as validatorCpf} from 'cpf-cnpj-validator'; 
 import {verifyJWT} from '../../middlewares/jwt.js'
 
 const router = express.Router();
@@ -22,6 +23,10 @@ router.post('/', [
     }),
     body('cpf').isLength({min: 11, max: 11}).withMessage('CPF inválido'),
     body('cpf').isNumeric().withMessage('Entre com um valor numérico de CPF'),
+    body('cpf').custom(async (cpf_input) => {   
+        const checkCPF = validatorCpf.isValid(cpf_input);
+        if(checkCPF) return Promise.reject('Número de CPF informado inválido.');
+    }),
     body('cpf').custom(async (cpf_input) => {   
         const clients = await db.listClient();
         const checkCPF = clients.some(item => {
@@ -45,6 +50,7 @@ router.post('/', [
     if (!errors.isEmpty()){
         return res.status(400).send({errors: errors.array()})
     }
+    
     const {zip_code, street, number, district, locale, uf, cpf, name, phone, cellphone, email, blood_type} = req.body;
     try{
         await db.insertClient(zip_code, street, number, district, locale, uf, cpf, name, phone, cellphone, email, blood_type);

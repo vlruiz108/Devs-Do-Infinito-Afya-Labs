@@ -14,11 +14,11 @@ const router = express.Router();
 
 router.use('/register', register);
 router.use('/login', login);
-router.use('/client', client);
-router.use('/specialist', specialist);
+router.use('/client', verifyJWT, client);
+router.use('/specialist', verifyJWT, specialist);
 router.use('/profession', verifyJWT, profession);
-router.use('/attendance', attendance);
-router.use('/historic', historic);
-router.use('/reports', reports);
+router.use('/attendance', verifyJWT, attendance);
+router.use('/historic', verifyJWT, historic);
+router.use('/reports', verifyJWT, reports);
 
 export default router;
