@@ -1,12 +1,10 @@
 import express from 'express';
 import db from '../../modal/client/index.js'
 import {body, validationResult} from 'express-validator';
-import { cpf as validatorCpf} from 'cpf-cnpj-validator'; 
-import {verifyJWT} from '../../middlewares/jwt.js'
+import {cpf as validatorCpf} from 'cpf-cnpj-validator'; 
 
 const router = express.Router();
 
-// router.post('/', verifyJWT, [
 router.post('/', [
     body('zip_code').isLength({min: 8, max: 8}).withMessage('CEP inválido'),
     body('zip_code').isNumeric().withMessage('Entre com um valor numérico de CEP'),
@@ -35,8 +33,6 @@ router.post('/', [
         if(checkCPF) return Promise.reject('CPF já cadastrado no sistema.');
     }),
     body('name').isLength({min: 1}).withMessage('Nome vazio'),
-    // body('phone').isLength({min:13 , max:13}).withMessage('Telefone fixo inválido'),
-    // body('cellphone').isLength({min:13 , max:14}).withMessage('Celular inválido'),
     body('email').isEmail().withMessage('Entre com um email válido'),
     body('blood_type').custom(blood => {
         const blood_types_allow = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
@@ -84,8 +80,6 @@ router.put('/', [
         if(checkCPF) return Promise.reject('CPF já cadastrado no sistema.');
     }),
     body('name').isLength({min: 1}).withMessage('Nome vazio'),
-    body('phone').isLength({min:13 , max:13}).withMessage('Telefone fixo inválido'),
-    body('cellphone').isLength({min:13 , max:14}).withMessage('Celular inválido'),
     body('email').isEmail().withMessage('Entre com um email válido'),
     body('blood_type').custom(blood => {
         const blood_types_allow = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
@@ -118,26 +112,34 @@ router.put('/', [
 });
 
 router.get('/', async (req, res) => {
-    const clients = await db.listClient();
-    if (clients.length > 0){
-        return res.status(200).send(clients);
-    }else{
-        return res.status(404).send({message: 'Sem dados cadastrados'});
+    try{
+        const clients = await db.listClient();
+        if (clients.length > 0){
+            return res.status(200).send(clients);
+        }else{
+            return res.status(400).send({message: 'Sem dados cadastrados'});
+        }
+    }catch(err){
+        res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
     }
 });
 
 router.get('/:id_client', async (req, res) => {
-    const clients = await db.listClient();
-    const {id_client} = req.params;
-    const client = clients.find(item => {
-        if (item.id_client == id_client){
-            return item;
+    try{
+        const clients = await db.listClient();
+        const {id_client} = req.params;
+        const client = clients.find(item => {
+            if (item.id_client == id_client){
+                return item;
+            }
+        })
+        if (!!client){
+            return res.status(200).send(client);
+        }else{
+            return res.status(400).send({message: 'Cliente não encontrado'});
         }
-    })
-    if (!!client){
-        return res.status(200).send(client);
-    }else{
-        return res.status(404).send({message: 'Cliente não encontrado'});
+    }catch(err){
+        res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
     }
 });
 

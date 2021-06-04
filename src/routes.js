@@ -20,5 +20,8 @@ router.use('/profession', verifyJWT, profession);
 router.use('/attendance', verifyJWT, attendance);
 router.use('/historic', verifyJWT, historic);
 router.use('/reports', verifyJWT, reports);
+router.use('/*', (req, res) => {
+  res.status(404).send({message: 'Caminho não encontrado.'});
+});
 
 export default router;
