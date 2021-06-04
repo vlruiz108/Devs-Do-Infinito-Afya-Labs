@@ -41,18 +41,18 @@ router.put('/', verifyJWT, [
         return res.status(400).send({erros: errors.array()});
     } 
 
-    const {user_email, user_pass, user_name} = req.body;
-    const {id_login} = req.infoUser;
-    const users = await db.listUser();
-    const checkEmail = users.some(item => {
-        return item.user_email === user_email;
-    });
-    const checkSameEmail = await db.checkSameEmail(user_email, id_login);
-    if(checkSameEmail.length < 1 && checkEmail) {
-        return res.status(401).send({message: 'Email de usuário já cadastrado no sistema.'});
-    }
-    
     try {
+        const {user_email, user_pass, user_name} = req.body;
+        const {id_login} = req.infoUser;
+        const users = await db.listUser();
+        const checkEmail = users.some(item => {
+            return item.user_email === user_email;
+        });
+        const checkSameEmail = await db.checkSameEmail(user_email, id_login);
+        if(checkSameEmail.length < 1 && checkEmail) {
+            return res.status(401).send({message: 'Email de usuário já cadastrado no sistema.'});
+        }
+    
         await db.updateUser(user_email, user_pass, user_name, id_login);
         res.status(200).send({message: "Dados alterados com sucesso."}); 
     } catch(err) {

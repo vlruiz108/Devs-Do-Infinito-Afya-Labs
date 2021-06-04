@@ -142,7 +142,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE sp_attendanceForProfission()
 BEGIN
-	SELECT * FROM vw_atendimentos_profissao;
+	SELECT * FROM vw_attendances_profession;
 END $$
 
 DELIMITER $$
