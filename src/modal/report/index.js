@@ -35,4 +35,69 @@ async function attendanceForSpecificSpecialist(name_specialist) {
   return rows[0];
 }
 
-export default {attendanceForSchedule, attendanceDate, attendanceForClient, attendanceForStatus, attendanceForSpecificSpecialist}
+async function historyForClient(info_client) {
+  const conn = await database.connect();
+  const sql = 'CALL sp_historyForClient(?)';
+  const [rows] = await conn.query(sql, info_client);
+  return rows[0];
+}
+
+async function historyForSpecialist(specialist_name) {
+  const conn = await database.connect();
+  const sql = 'CALL sp_historyForSpecialist(?)';
+  const [rows] = await conn.query(sql, specialist_name);
+  return rows[0];
+}
+
+async function historyForRegMed(med_reg) {
+  const conn = await database.connect();
+  const sql = 'CALL sp_historyForRegMed(?)';
+  const [rows] = await conn.query(sql, med_reg);
+  return rows[0];
+}
+
+async function attendanceForPeriod(initial_date, final_date) {
+  const conn = await database.connect();
+  const sql = 'CALL sp_attendanceForPeriod(?, ?)';
+  const dataInfo = [initial_date, final_date];
+  const [rows] = await conn.query(sql, dataInfo);
+  return rows[0];
+}
+
+async function countSpecialistHistoricInPeriod(initial_date, final_date) {
+  const conn = await database.connect();
+  const sql = 'CALL sp_countSpecialistInPeriod(?, ?)';
+  const dataInfo = [initial_date, final_date];
+  const [rows] = await conn.query(sql, dataInfo);
+  return rows[0];
+}
+
+async function countProfessionInPeriod(initial_date, final_date) {
+  const conn = await database.connect();
+  const sql = 'CALL sp_countProfessionInPeriod(?, ?)';
+  const dataInfo = [initial_date, final_date];
+  const [rows] = await conn.query(sql, dataInfo);
+  return rows[0];
+}
+
+async function countAttendanceForProfission() {
+  const conn = await database.connect();
+  const sql = 'CALL sp_countAttendanceForProfission()';
+  const [rows] = await conn.query(sql);
+  return rows[0];
+}
+
+export default {
+  attendanceForSchedule, 
+  attendanceDate, 
+  attendanceForClient, 
+  attendanceForStatus, 
+  attendanceForSpecificSpecialist,
+  historyForClient,
+  historyForSpecialist,
+  historyForRegMed,
+  attendanceForPeriod,
+  countSpecialistHistoricInPeriod,
+  countProfessionInPeriod,
+  countAttendanceForProfission
+}

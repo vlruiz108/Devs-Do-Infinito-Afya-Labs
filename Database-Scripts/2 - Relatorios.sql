@@ -84,15 +84,18 @@ END $$
 
 #Outras buscas importantes
 DELIMITER $$
-CREATE PROCEDURE sp_historyForClient(p_client_name VARCHAR(45))
+CREATE PROCEDURE sp_historyForClient(p_info_client VARCHAR(45))
 BEGIN 
-	SELECT * FROM vw_historics WHERE client_name = p_client_name;
+	SELECT * FROM vw_historics 
+		WHERE client_name LIKE CONCAT("%", p_info_client, "%")
+        OR cpf_client = p_info_client;
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE sp_historyForSpecialist(p_client_specialist VARCHAR(45))
+CREATE PROCEDURE sp_historyForSpecialist(p_specialist_name VARCHAR(45))
 BEGIN 
-	SELECT * FROM vw_historics WHERE specialist_name = p_client_specialist;
+	SELECT * FROM vw_historics 
+		WHERE specialist_name LIKE CONCAT("%", p_specialist_name, "%");
 END $$
 
 DELIMITER $$
@@ -104,7 +107,8 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE sp_attendanceForPeriod(p_initial_date DATE, p_final_date DATE)
 BEGIN 
-	SELECT * FROM vw_historics WHERE date(attendance_date) BETWEEN p_initial_date AND p_final_date;
+	SELECT * FROM vw_historics 
+		WHERE date(attendance_date) BETWEEN p_initial_date AND p_final_date;
 END $$
 
 DELIMITER $$

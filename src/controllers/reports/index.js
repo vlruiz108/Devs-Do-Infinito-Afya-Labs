@@ -78,4 +78,138 @@ router.get('/attendanceForSpecificSpecialist/:name_specialist', async (req, res)
   }
 });
 
+router.get('/historyForClient/:info_client', async (req, res) => {
+  const {info_client} = req.params;
+  
+  try {
+    const historic = await db.historyForClient(info_client);
+    if (historic.length > 0){
+        return res.status(200).send(historic);
+    }else{
+        return res.status(404).send({message: 'Sem dados cadastrados para este paciente.'});
+    }
+  } catch(err) {
+    res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
+  }
+});
+
+router.get('/historyForSpecialist/:specialist_name', async (req, res) => {
+  const {specialist_name} = req.params;
+  
+  try {
+    const historic = await db.historyForSpecialist(specialist_name);
+    if (historic.length > 0){
+        return res.status(200).send(historic);
+    }else{
+        return res.status(404).send({message: 'Sem dados cadastrados para este paciente.'});
+    }
+  } catch(err) {
+    res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
+  }
+});
+
+router.get('/historyForRegMed/:med_reg', async (req, res) => {
+  const {med_reg} = req.params;
+  
+  try {
+    const historic = await db.historyForRegMed(med_reg);
+    if (historic.length > 0){
+        return res.status(200).send(historic);
+    }else{
+        return res.status(404).send({message: 'Sem dados cadastrados para este paciente.'});
+    }
+  } catch(err) {
+    res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
+  }
+});
+
+router.get('/attendanceForPeriod/', async (req, res) => {
+  const initial_date = req.query.initial_date || 0; 
+  const final_date = req.query.final_date || 0;
+
+  if(!initial_date || !final_date) 
+    return res.status(400).send({message: 'Informe a data inicial e a data final.'});
+
+  try {
+    const historic = await db.attendanceForPeriod(initial_date, final_date);
+    if (historic.length > 0){
+        return res.status(200).send(historic);
+    }else{
+        return res.status(404).send({message: 'Sem dados cadastrados para este paciente.'});
+    }
+  } catch(err) {
+    res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
+  }
+});
+
+router.get('/countSpecialistHistoricInPeriod/', async (req, res) => {
+  const initial_date = req.query.initial_date || 0; 
+  const final_date = req.query.final_date || 0;
+
+  if(!initial_date || !final_date) 
+    return res.status(400).send({message: 'Informe a data inicial e a data final.'});
+
+  try {
+    const historic = await db.countSpecialistHistoricInPeriod(initial_date, final_date);
+    if (historic.length > 0){
+        return res.status(200).send(historic);
+    }else{
+        return res.status(404).send({message: 'Sem dados cadastrados para este paciente.'});
+    }
+  } catch(err) {
+    res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
+  }
+});
+
+router.get('/countProfessionInPeriod/', async (req, res) => {
+  const initial_date = req.query.initial_date || 0; 
+  const final_date = req.query.final_date || 0;
+
+  if(!initial_date || !final_date) 
+    return res.status(400).send({message: 'Informe a data inicial e a data final.'});
+
+  try {
+    const historic = await db.countProfessionInPeriod(initial_date, final_date);
+    if (historic.length > 0){
+        return res.status(200).send(historic);
+    }else{
+        return res.status(404).send({message: 'Sem dados cadastrados para este paciente.'});
+    }
+  } catch(err) {
+    res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
+  }
+});
+
+router.get('/countProfessionInPeriod/', async (req, res) => {
+  const initial_date = req.query.initial_date || 0; 
+  const final_date = req.query.final_date || 0;
+
+  if(!initial_date || !final_date) 
+    return res.status(400).send({message: 'Informe a data inicial e a data final.'});
+
+  try {
+    const historic = await db.countProfessionInPeriod(initial_date, final_date);
+    if (historic.length > 0){
+        return res.status(200).send(historic);
+    }else{
+        return res.status(404).send({message: 'Sem dados cadastrados para este paciente.'});
+    }
+  } catch(err) {
+    res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
+  }
+});
+
+router.get('/countAttendanceForProfission/', async (req, res) => {
+  try {
+    const historic = await db.countAttendanceForProfission();
+    if (historic.length > 0){
+        return res.status(200).send(historic);
+    }else{
+        return res.status(404).send({message: 'Sem dados cadastrados para este paciente.'});
+    }
+  } catch(err) {
+    res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
+  }
+});
+
 export default router;

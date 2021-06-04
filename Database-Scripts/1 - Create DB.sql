@@ -108,8 +108,8 @@ CREATE INDEX attendance_date ON tbl_attendances(attendance_date);
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS tbl_historic_med_regs (
   id_historic INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  date_med_reg VARCHAR(10) NOT NULL,
-  time_med_reg VARCHAR(8) NOT NULL,
+  date_med_reg DATE NOT NULL,
+  time_med_reg TIME NOT NULL,
   description TEXT NOT NULL,
 	FK_id_attendances INT NOT NULL,
   CONSTRAINT FK_id_attendances FOREIGN KEY(FK_id_attendances)
