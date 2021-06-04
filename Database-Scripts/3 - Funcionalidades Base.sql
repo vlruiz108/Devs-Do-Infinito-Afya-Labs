@@ -78,7 +78,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE sp_insertHistoricMedRegs(p_description TEXT, p_FK_id_attendances INT)
 BEGIN
-    INSERT INTO tbl_historic_med_regs(time_med_reg, date_med_reg, description, FK_id_attendances) 
+    INSERT INTO tbl_historic_med_regs(date_med_reg, time_med_reg, description, FK_id_attendances) 
 		VALUES( (SELECT date(attendance_date) FROM tbl_attendances WHERE id_attendance = p_FK_id_attendances), 
 				(SELECT time(attendance_date) FROM tbl_attendances WHERE id_attendance = p_FK_id_attendances), 
                 p_description, p_FK_id_attendances
@@ -145,7 +145,7 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE sp_updateHistoryMedRegs(p_description TEXT, p_FK_atendimento_historico INT, p_id_history INT)
+CREATE PROCEDURE sp_updateHistoryMedRegs(p_description TEXT, p_id_historic INT)
 BEGIN
 	UPDATE tbl_historic_med_regs SET description = p_description WHERE id_historic = p_id_historic;
 END $$

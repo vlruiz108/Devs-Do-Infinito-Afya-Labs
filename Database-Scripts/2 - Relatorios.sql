@@ -145,7 +145,7 @@ DELIMITER $$
 CREATE PROCEDURE sp_countAttendanceForProfission()
 BEGIN
 	SELECT profession_name, count(*) total_attendance FROM vw_attendances_profession GROUP BY profession_name ORDER BY total_attendance DESC;
-END $$
+END $$	
 
 DELIMITER $$
 CREATE PROCEDURE sp_specialistForProfission()
