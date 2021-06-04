@@ -9,7 +9,6 @@ import historic from './controllers/historic/index.js';
 import reports from './controllers/reports/index.js';
 import { verifyJWT } from './middlewares/jwt.js';
 
-
 const router = express.Router();
 
 router.use('/register', register);
@@ -20,6 +19,12 @@ router.use('/profession', verifyJWT, profession);
 router.use('/attendance', verifyJWT, attendance);
 router.use('/historic', verifyJWT, historic);
 router.use('/reports', verifyJWT, reports);
+router.get('/', (req, res) => {
+  res.send({
+      message: 'Welcome to AGmed - Afya-Labs',
+      doc: 'https://devs-agmed-afya.herokuapp.com/docs' 
+  });
+});
 router.use('/*', (req, res) => {
   res.status(404).send({message: 'Caminho não encontrado.'});
 });
