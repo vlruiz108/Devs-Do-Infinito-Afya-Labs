@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../../src/index");
+const app = require("../../dist/index");
 
 // import request from 'supertest';
 // import app from '../../src/index.js';
