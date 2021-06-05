@@ -108,4 +108,15 @@ router.get('/:id_specialist', async (req, res) => {
     }
 });
 
+router.delete('/:id_specialist', async (req, res) => {
+    const {id_specialist} = req.params;
+
+    try {
+        await db.deleteSpecialist(id_specialist);
+        res.status(200).send({message: 'Especialista excluido com sucesso.'});
+    } catch(err) {
+        res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
+    }    
+});
+
 export default router;

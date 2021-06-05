@@ -13,9 +13,9 @@ router.post('/', [
     return res.status(400).send({erros: errors.array()});
   } 
 
-  const {user_email, user_pass} = req.body;
+  const {user_email, password} = req.body;
   try{
-    const users = await db.login(user_email, user_pass);
+    const users = await db.login(user_email, password);
     if(users.length > 0) {
       const {id_login, user_name} = users[0];
       const token = generateToken(id_login, user_name);

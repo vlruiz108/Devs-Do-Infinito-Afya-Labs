@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS tbl_users (
   id_login INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   user_email VARCHAR(45) UNIQUE NOT NULL,
   user_pass VARCHAR(64) NOT NULL,
-  user_name VARCHAR(45) NOT NULL
+  user_name VARCHAR(45) NOT NULL,
+  userIsDeleted BOOLEAN DEFAULT FALSE
 );
 
 -- -----------------------------------------------------
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS tbl_clients (
   email VARCHAR(45) NULL,
   blood_type ENUM("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-") NOT NULL,
   FK_id_address INT NOT NULL,
+  clientIsDeleted BOOLEAN DEFAULT FALSE,
   CONSTRAINT fk_address_client FOREIGN KEY(FK_id_address)
     REFERENCES tbl_address(id_address)
 );
@@ -51,7 +53,8 @@ CREATE INDEX email ON tbl_clients(email);
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS tbl_professions (
   id_profession INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  profession_name VARCHAR(45) NOT NULL
+  profession_name VARCHAR(45) NOT NULL,
+  professionIsDeleted BOOLEAN DEFAULT FALSE
 );
 
 -- -----------------------------------------------------
@@ -66,6 +69,7 @@ CREATE TABLE IF NOT EXISTS tbl_specialists (
   email VARCHAR(45) NULL,
   FK_id_address INT NOT NULL,
   FK_id_profession INT NOT NULL,
+  specialistIsDeleted BOOLEAN DEFAULT FALSE,
   CONSTRAINT fk_address_specialist FOREIGN KEY(FK_id_address)
     REFERENCES tbl_address(id_address),
   CONSTRAINT fk_id_profession FOREIGN KEY(FK_id_profession)
@@ -111,6 +115,7 @@ CREATE TABLE IF NOT EXISTS tbl_historic_med_regs (
   date_med_reg DATE NOT NULL,
   time_med_reg TIME NOT NULL,
   description TEXT NOT NULL,
+  historicIsDeleted BOOLEAN DEFAULT FALSE,
 	FK_id_attendances INT NOT NULL,
   CONSTRAINT FK_id_attendances FOREIGN KEY(FK_id_attendances)
     REFERENCES tbl_attendances(id_attendance)

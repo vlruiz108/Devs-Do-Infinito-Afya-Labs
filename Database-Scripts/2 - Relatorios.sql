@@ -34,17 +34,22 @@ SELECT a.id_attendance, a.schedule_date, a.attendance_date, a.attendance_value,
         
 CREATE VIEW vw_list_clients AS 
 SELECT * FROM tbl_clients
-	JOIN tbl_address ON tbl_clients.FK_id_address = tbl_address.id_address; 
+	JOIN tbl_address ON tbl_clients.FK_id_address = tbl_address.id_address
+    WHERE clientIsDeleted = false; 
 
 CREATE VIEW vw_list_specialists AS
 SELECT * FROM tbl_specialists
 	JOIN tbl_address ON tbl_specialists.FK_id_address = tbl_address.id_address
-    JOIN tbl_professions ON tbl_specialists.FK_id_profession = tbl_professions.id_profession;
+    JOIN tbl_professions ON tbl_specialists.FK_id_profession = tbl_professions.id_profession
+    WHERE specialistIsDeleted = false;
     
 CREATE VIEW vw_list_attendances AS
 SELECT * FROM tbl_attendances
 	JOIN tbl_med_regs ON tbl_attendances.FK_id_med_reg = tbl_med_regs.id_med_reg
     JOIN tbl_specialists ON tbl_attendances.FK_id_specialist = tbl_specialists.id_specialist;
+
+CREATE VIEW vc_list_professions AS
+SELECT * FROM tbl_professions WHERE professionIsDeleted = false;
 
 #Procedures dos relatorios
 DELIMITER $$

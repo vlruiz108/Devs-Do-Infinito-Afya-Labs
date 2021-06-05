@@ -14,7 +14,7 @@ router.post('/', [
         });
         if(checkEmail) return Promise.reject('Email de usuário já cadastrado no sistema.');
     }),
-    body('user_pass').isLength({min: 6, max: 15}).withMessage('Senha deve conter de 6 a 15 caracteres.'),
+    body('password').isLength({min: 6, max: 15}).withMessage('Senha deve conter de 6 a 15 caracteres.'),
     body('user_name').isLength({min: 1}).withMessage('Nome não pode ser vazio.'),
 ], async (req, res) => {
    const errors = validationResult(req);
@@ -22,9 +22,9 @@ router.post('/', [
         return res.status(400).send({erros: errors.array()});
     } 
     
-    const {user_email, user_pass, user_name} = req.body;
+    const {user_email, password, user_name} = req.body;
     try {
-        await db.insertUser(user_email, user_pass, user_name);
+        await db.insertUser(user_email, password, user_name);
         res.status(201).send({message: 'Usuário cadastrado com sucesso.'}); 
     } catch(err) {
         res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
@@ -33,7 +33,7 @@ router.post('/', [
 
 router.put('/', verifyJWT, [
     body('user_email').isEmail().withMessage('Informe um e-mail válido.'),
-    body("user_pass").isLength({min: 6, max: 15}).withMessage('Senha deve conter de 6 a 15 caracteres.'),
+    body("password").isLength({min: 6, max: 15}).withMessage('Senha deve conter de 6 a 15 caracteres.'),
     body("user_name").isLength({min: 1}).withMessage('Nome não pode ser vazio.'),
 ], async (req, res) => {
     const errors = validationResult(req);
@@ -42,7 +42,7 @@ router.put('/', verifyJWT, [
     } 
 
     try {
-        const {user_email, user_pass, user_name} = req.body;
+        const {user_email, password, user_name} = req.body;
         const {id_login} = req.infoUser;
         const users = await db.listUser();
         const checkEmail = users.some(item => {
@@ -53,11 +53,22 @@ router.put('/', verifyJWT, [
             return res.status(401).send({message: 'Email de usuário já cadastrado no sistema.'});
         }
     
-        await db.updateUser(user_email, user_pass, user_name, id_login);
+        await db.updateUser(user_email, password, user_name, id_login);
         res.status(200).send({message: "Dados alterados com sucesso."}); 
     } catch(err) {
         res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
     }
+});
+
+router.delete('/:id_login', async (req, res) => {
+    const {id_login} = req.params;
+
+    try {
+        await db.deleteUser(id_login);
+        res.status(200).send({message: 'Usuário excluido com sucesso.'});
+    } catch(err) {
+        res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
+    }    
 });
 
 export default router;

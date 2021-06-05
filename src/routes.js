@@ -1,5 +1,5 @@
 import express from 'express';
-import register from './controllers/register/index.js';
+import register from './controllers/user/index.js';
 import login from './controllers/login/index.js';
 import client from './controllers/client/index.js';
 import specialist from './controllers/specialist/index.js';
@@ -18,7 +18,7 @@ router.use('/specialist', verifyJWT, specialist);
 router.use('/profession', verifyJWT, profession);
 router.use('/attendance', verifyJWT, attendance);
 router.use('/historic', verifyJWT, historic);
-router.use('/reports', verifyJWT, reports);
+router.use('/reports',  reports);
 router.get('/', (req, res) => {
   res.send({
       message: 'Welcome to AGmed - Afya-Labs',

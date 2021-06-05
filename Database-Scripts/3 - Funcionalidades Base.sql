@@ -123,11 +123,11 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE sp_updateAttendance(p_schedule_date DATE, p_attendance_date DATE, 
+CREATE PROCEDURE sp_updateAttendance(p_attendance_date DATE, 
 p_attendance_value DECIMAL(6,2), p_attendance_status ENUM("Agendado", "Realizado", "Cancelado"),
 p_FK_id_med_reg INT, p_FK_id_specialist INT, p_id_attendance INT)
 BEGIN
-	UPDATE tbl_attendances SET schedule_date = p_schedule_date, attendance_date = p_attendance_date,
+	UPDATE tbl_attendances SET attendance_date = p_attendance_date,
     attendance_value = p_attendance_value, attendance_status = p_attendance_status, 
     FK_id_med_reg = p_FK_id_med_reg, FK_id_specialist = p_FK_id_specialist
 		WHERE id_attendance = p_id_attendance;
@@ -144,6 +144,31 @@ DELIMITER $$
 CREATE PROCEDURE sp_updateHistoryMedRegs(p_description TEXT, p_id_historic INT)
 BEGIN
 	UPDATE tbl_historic_med_regs SET description = p_description WHERE id_historic = p_id_historic;
+END $$
+
+#Procedures de Delete
+DELIMITER $$
+CREATE PROCEDURE sp_DeleteUsers(p_id_login INT)
+BEGIN
+	UPDATE tbl_users SET userIdDeleted = true WHERE id_login = p_id_login; 
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE sp_deleteClient(p_id_client INT) 
+BEGIN
+	UPDATE tbl_clients SET clientIsDeleted = true WHERE id_client = p_id_client;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE sp_deleteSpecialist(p_id_specialist INT) 
+BEGIN
+	UPDATE tbl_specialists SET specialistIsDeleted = true WHERE id_specialist = p_id_specialist;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE sp_deleteProfission(p_id_profession INT)
+BEGIN
+	UPDATE tbl_professions SET professionIsDeleted = true WHERE id_profession = p_id_profession;
 END $$
 
 DELIMITER $$
