@@ -1,5 +1,5 @@
 import express from 'express';
-import db from '../../modal/historic/index.js';
+import db from '../../services/historic/index.js';
 import {body, validationResult} from 'express-validator';
 
 const router = express.Router();

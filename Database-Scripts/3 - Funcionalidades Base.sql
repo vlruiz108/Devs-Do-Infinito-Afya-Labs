@@ -59,13 +59,12 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE sp_insertAttendance(p_schedule_date DATETIME, p_attendance_date DATETIME, 
+CREATE PROCEDURE sp_insertAttendance(p_attendance_date DATETIME, 
 p_attendance_value DECIMAL(6,2), p_FK_id_med_reg INT, p_FK_id_specialist INT)
 BEGIN
 	INSERT INTO tbl_attendances(schedule_date, attendance_date, attendance_value, 
     FK_id_med_reg, FK_id_specialist) 
-		VALUES(p_schedule_date, p_attendance_date, p_attendance_value, 
-        p_FK_id_med_reg, p_FK_id_specialist);
+		VALUES(NOW(), p_attendance_date, p_attendance_value, p_FK_id_med_reg, p_FK_id_specialist);
 END $$
 
 DELIMITER $$
@@ -76,10 +75,10 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE sp_insertHistoricMedRegs(p_date_med_reg DATE, p_time_med_reg TIME, p_description TEXT, p_FK_id_attendances INT)
+CREATE PROCEDURE sp_insertHistoricMedRegs(p_description TEXT, p_FK_id_attendances INT)
 BEGIN
-	INSERT INTO tbl_historic_med_regs(date_med_reg, time_med_reg, description, FK_id_attendances) 
-		VALUES(p_date_med_reg, p_time_med_reg, p_description, p_FK_id_attendances);
+    INSERT INTO tbl_historic_med_regs(date_med_reg, time_med_reg, description, FK_id_attendances) 
+		VALUES(DATE(NOW()), TIME(NOW()), p_description, p_FK_id_attendances);
 END $$
 
 #PROCEDURES DE UPDATE
@@ -107,12 +106,12 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE sp_updateSpecialist(p_zipe_code int, p_street VARCHAR(45), p_number VARCHAR(10), 
 	p_district VARCHAR(45), p_locale VARCHAR(45), p_uf VARCHAR(2), p_id_address INT, 
-    p_register VARCHAR(11), p_nome VARCHAR(45), p_phone VARCHAR(45), p_cellphone VARCHAR(45), 
+    p_register VARCHAR(11), p_specialist_name VARCHAR(45), p_phone VARCHAR(45), p_cellphone VARCHAR(45), 
     p_email VARCHAR(45), p_FK_id_profession INT, p_id_specialist INT) 
 BEGIN
 	UPDATE tbl_address SET zipe_code = p_zipe_code, street = p_street, number = p_number, 
     district = p_district, locale = p_locale, uf = p_uf WHERE id_address = p_id_address;
-	UPDATE tbl_specialists SET register = p_register, nome = p_nome, phone = p_phone, 
+	UPDATE tbl_specialists SET register = p_register, specialist_name = p_specialist_name, phone = p_phone, 
     cellphone = p_cellphone, email = p_email, FK_id_address = p_id_address, FK_id_profession = p_FK_id_profession 
 		WHERE id_specialist = p_id_specialist;
 END $$
@@ -124,11 +123,11 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE sp_updateAttendance(p_schedule_date DATE, p_attendance_date DATE, 
+CREATE PROCEDURE sp_updateAttendance(p_attendance_date DATE, 
 p_attendance_value DECIMAL(6,2), p_attendance_status ENUM("Agendado", "Realizado", "Cancelado"),
 p_FK_id_med_reg INT, p_FK_id_specialist INT, p_id_attendance INT)
 BEGIN
-	UPDATE tbl_attendances SET schedule_date = p_schedule_date, attendance_date = p_attendance_date,
+	UPDATE tbl_attendances SET attendance_date = p_attendance_date,
     attendance_value = p_attendance_value, attendance_status = p_attendance_status, 
     FK_id_med_reg = p_FK_id_med_reg, FK_id_specialist = p_FK_id_specialist
 		WHERE id_attendance = p_id_attendance;
@@ -142,10 +141,34 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE sp_updateHistoryMedRegs(p_description TEXT, p_FK_atendimento_historico INT, p_id_history INT)
+CREATE PROCEDURE sp_updateHistoryMedRegs(p_description TEXT, p_id_historic INT)
 BEGIN
-	UPDATE tbl_prontuario_historicos SET description = p_description, FK_atendimento_historico = p_FK_atendimento_historico
-		WHERE id_history = p_id_history;
+	UPDATE tbl_historic_med_regs SET description = p_description WHERE id_historic = p_id_historic;
+END $$
+
+#Procedures de Delete
+DELIMITER $$
+CREATE PROCEDURE sp_DeleteUsers(p_id_login INT)
+BEGIN
+	UPDATE tbl_users SET userIdDeleted = true WHERE id_login = p_id_login; 
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE sp_deleteClient(p_id_client INT) 
+BEGIN
+	UPDATE tbl_clients SET clientIsDeleted = true WHERE id_client = p_id_client;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE sp_deleteSpecialist(p_id_specialist INT) 
+BEGIN
+	UPDATE tbl_specialists SET specialistIsDeleted = true WHERE id_specialist = p_id_specialist;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE sp_deleteProfission(p_id_profession INT)
+BEGIN
+	UPDATE tbl_professions SET professionIsDeleted = true WHERE id_profession = p_id_profession;
 END $$
 
 DELIMITER $$

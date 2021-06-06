@@ -1,5 +1,5 @@
 import express from 'express';
-import db from '../../modal/profession/index.js';
+import db from '../../services/profession/index.js';
 import {body, validationResult} from 'express-validator';
 
 const router = express.Router();

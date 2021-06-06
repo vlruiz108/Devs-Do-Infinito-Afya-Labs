@@ -1,5 +1,5 @@
 import express from 'express';
-import db from '../../modal/specialist/index.js'
+import db from '../../services/specialist/index.js'
 import {body, validationResult} from 'express-validator';
 
 const router = express.Router();
@@ -56,16 +56,17 @@ router.put('/', [
     body('email').isEmail().withMessage('Entre com um email válido')
 ] , async (req,res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()){
+    if(!errors.isEmpty()) {
         return res.status(400).send({errors: errors.array()})
     }
     const {id_specialist, zip_code, street, number, district, locale, uf, register, specialist_name, phone, cellphone, email, FK_id_profession} = req.body;
     const specialists = await db.listSpecialist();
     const specialist = specialists.find(item => {
-        if (item.id_specialist == id_specialist){
+        if(item.id_specialist == id_specialist) {
             return item;
         }
-    })
+    });
+
     try{
         const id_address = specialist.id_address;
         const id_specialist = specialist.id_specialist;
