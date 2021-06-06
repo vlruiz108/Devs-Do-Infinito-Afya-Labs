@@ -1,5 +1,5 @@
 import express from 'express';
-import db from '../../modal/report/index.js';
+import db from '../../services/report/index.js';
 
 const router = express.Router();
 

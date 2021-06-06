@@ -1,5 +1,5 @@
 import express from 'express';
-import db from '../../modal/client/index.js'
+import db from '../../services/client/index.js'
 import {body, validationResult} from 'express-validator';
 import {cpf as validatorCpf} from 'cpf-cnpj-validator'; 
 
@@ -19,11 +19,10 @@ router.post('/', [
         }
         return true;
     }),
-    body('cpf').isLength({min: 11, max: 11}).withMessage('CPF inválido'),
     body('cpf').isNumeric().withMessage('Entre com um valor numérico de CPF'),
     body('cpf').custom(async (cpf_input) => {   
         const checkCPF = validatorCpf.isValid(cpf_input);
-        if(checkCPF) return Promise.reject('Número de CPF informado inválido.');
+        if(!checkCPF) return Promise.reject('Número de CPF informado inválido.');
     }),
     body('cpf').custom(async (cpf_input) => {   
         const clients = await db.listClient();
@@ -70,8 +69,11 @@ router.put('/', [
         }
         return true;
     }),
-    body('cpf').isLength({min: 11, max: 11}).withMessage('CPF inválido'),
     body('cpf').isNumeric().withMessage('Entre com um valor numérico de CPF'),
+    body('cpf').custom(async (cpf_input) => {   
+        const checkCPF = validatorCpf.isValid(cpf_input);
+        if(!checkCPF) return Promise.reject('Número de CPF informado inválido.');
+    }),
     body('cpf').custom(async (cpf_input) => {   
         const clients = await db.listClient();
         const checkCPF = clients.some(item => {
@@ -99,7 +101,7 @@ router.put('/', [
         if (item.id_client == id_client){
             return item;
         }
-    })
+    });
     try{
         const id_address = client.id_address;
         const FK_id_address = client.FK_id_address;
