@@ -50,4 +50,19 @@ async function updateUser(user_email, user_pass, user_name, id_login) {
     await conn.query(sql, dataNewPass);
 }
 
-export default {insertUser, listUser, login, checkEmail, changePassword, updateUser, checkSameEmail}
+async function deleteUser(id_login) {
+    const conn = await database.connect();
+    const sql = 'CALL sp_DeleteUsers(?)';
+    await conn.query(sql, id_login);
+}
+
+export default {
+    insertUser, 
+    listUser, 
+    login, 
+    checkEmail, 
+    changePassword, 
+    updateUser, 
+    checkSameEmail,
+    deleteUser
+}

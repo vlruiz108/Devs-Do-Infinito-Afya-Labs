@@ -11,10 +11,10 @@ SELECT a.id_attendance, a.schedule_date, a.attendance_date, a.attendance_value,
 ############# BUSCAS IMPORTANTES #################
 #Históricos por cliente, por especialista e por prontuario
 CREATE VIEW vw_historics AS
-SELECT a.id_history, a.date_med_reg, a.time_med_reg, a.description, b.attendance_date, 
+SELECT a.id_historic, a.date_med_reg, a.time_med_reg, a.description, b.attendance_date, 
 	c.specialist_name, d.id_med_reg, e.client_name, e.email as email_client, 
-    e.cpf as cpf_client FROM tbl_history_med_regs a
-		JOIN tbl_attendances b ON a.FK_history_med_regs = b.id_attendance
+    e.cpf as cpf_client FROM tbl_historic_med_regs a
+		JOIN tbl_attendances b ON a.FK_id_attendances = b.id_attendance
         JOIN tbl_specialists c ON b.FK_id_specialist = c.id_specialist
         JOIN tbl_med_regs d ON b.FK_id_med_reg = d.id_med_reg
         JOIN tbl_clients e ON d.FK_id_client = e.id_client;
@@ -44,7 +44,7 @@ SELECT * FROM tbl_specialists
 CREATE VIEW vw_list_attendances AS
 SELECT * FROM tbl_attendances
 	JOIN tbl_med_regs ON tbl_attendances.FK_id_med_reg = tbl_med_regs.id_med_reg
-    JOIN tbl_specialists ON tbl_attendances.FK_id_specialist = tbl_specialists.id_specialist
+    JOIN tbl_specialists ON tbl_attendances.FK_id_specialist = tbl_specialists.id_specialist;
 
 #Procedures dos relatorios
 DELIMITER $$

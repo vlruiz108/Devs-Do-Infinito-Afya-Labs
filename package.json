@@ -9,8 +9,8 @@
   "scripts": {
     "test": "jest --collectCoverage",
     "dev": "nodemon ./src index.js",
-    "build": "sucrase ./src -d ./dist --transforms imports",
-    "start": "node dist/index.js"
+    "build": "sucrase ./src -d ./dist --transforms imports && cp ./src/api-doc.json ./dist/api-doc.json",
+    "start": "node ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,8 @@
   },
   "homepage": "https://github.com/LFelipe-sb/Devs-Do-Infinito-Afya-Labs#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "cpf-cnpj-validator": "^1.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.11.1",
@@ -42,7 +44,8 @@
     "mysql2": "^2.2.5",
     "nodemailer": "^6.6.0",
     "sucrase": "^3.18.1",
-    "ts-jest": "^27.0.2"
+    "ts-jest": "^27.0.2",
+    "swagger-ui-express": "^4.1.6"
   },
   "jest": {
     "testEnvironment": "node",

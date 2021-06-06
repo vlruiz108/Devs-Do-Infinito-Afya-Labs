@@ -77,27 +77,46 @@ router.put('/', [
 });
 
 router.get('/', async (req, res) => {
-    const specialists = await db.listSpecialist();
-    if (specialists.length > 0){
-        return res.status(200).send(specialists);
-    }else{
-        return res.status(404).send({message: 'Sem dados cadastrados'});
+    try{
+        const specialists = await db.listSpecialist();
+        if (specialists.length > 0){
+            return res.status(200).send(specialists);
+        }else{
+            return res.status(400).send({message: 'Sem dados cadastrados'});
+        }
+    }catch(err){
+        res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
     }
 });
 
 router.get('/:id_specialist', async (req, res) => {
-    const specialists = await db.listSpecialist();
-    const {id_specialist} = req.params;
-    const specialist = specialists.find(item => {
-        if (item.id_specialist == id_specialist){
-            return item;
+    try{
+        const specialists = await db.listSpecialist();
+        const {id_specialist} = req.params;
+        const specialist = specialists.find(item => {
+            if (item.id_specialist == id_specialist){
+                return item;
+            }
+        })
+        if (!!specialist){
+            return res.status(200).send(specialist);
+        }else{
+            return res.status(400).send({message: 'Especialista não encontrado'});
         }
-    })
-    if (!!specialist){
-        return res.status(200).send(specialist);
-    }else{
-        return res.status(404).send({message: 'Especialista não encontrado'});
+    }catch(err){
+        res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
     }
+});
+
+router.delete('/:id_specialist', async (req, res) => {
+    const {id_specialist} = req.params;
+
+    try {
+        await db.deleteSpecialist(id_specialist);
+        res.status(200).send({message: 'Especialista excluido com sucesso.'});
+    } catch(err) {
+        res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
+    }    
 });
 
 export default router;

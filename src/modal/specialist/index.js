@@ -20,4 +20,10 @@ async function updateSpecialist(zip_code, street, number, district, locale, uf, 
     await conn.query(sql, dataNewSpecialistInfo);
 }
 
-export default {insertSpecialist, listSpecialist, updateSpecialist}
+async function deleteSpecialist(id_specialist) {
+    const conn = await database.connect();
+    const sql = 'CALL sp_deleteSpecialist(?)';
+    await conn.query(sql, id_specialist);
+}
+
+export default {insertSpecialist, listSpecialist, updateSpecialist, deleteSpecialist}

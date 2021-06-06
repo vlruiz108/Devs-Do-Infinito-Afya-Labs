@@ -20,4 +20,10 @@ async function updateClient(zip_code, street, number, district, locale, uf, id_a
     await conn.query(sql, dataNewClientInfo);
 }
 
-export default {insertClient, listClient, updateClient}
+async function deleteClient(id_client) {
+    const conn = await database.connect();
+    const sql = 'CALL sp_deleteClient(?)';
+    await conn.query(sql, id_client);
+}
+
+export default {insertClient, listClient, updateClient, deleteClient}

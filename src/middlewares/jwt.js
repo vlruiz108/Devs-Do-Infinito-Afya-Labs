@@ -14,7 +14,7 @@ function verifyJWT(req, res, next) {
   
   jwt.verify(token, secret, (err, decoded) => {
       if(err) {
-          return res.status(401).send('Usuário não autenticado.');
+          return res.status(401).send({message: 'Usuário não autenticado.'});
       } 
       req.infoUser = decoded.infoUser;
       return next();
