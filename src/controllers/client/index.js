@@ -117,7 +117,14 @@ router.get('/', async (req, res) => {
     try{
         const clients = await db.listClient();
         if (clients.length > 0){
-            return res.status(200).send(clients);
+            const noId = ({id_client, ...rest}) => rest;
+            const client = clients.map(item => {
+                return {
+                    id: item.id_client,
+                    ...noId(item)
+                }
+            });
+            return res.status(200).send(client);
         }else{
             return res.status(400).send({message: 'Sem dados cadastrados'});
         }
@@ -130,12 +137,17 @@ router.get('/:id_client', async (req, res) => {
     try{
         const clients = await db.listClient();
         const {id_client} = req.params;
-        const client = clients.find(item => {
+        const clientFound = clients.find(item => {
             if (item.id_client == id_client){
                 return item;
             }
-        })
-        if (!!client){
+        });
+        if (!!clientFound){
+            const noId = ({id_client, ...rest}) => rest;
+            const client = {
+                id: clientFound.id_client,
+                ...noId(clientFound)
+            }
             return res.status(200).send(client);
         }else{
             return res.status(400).send({message: 'Cliente não encontrado'});

@@ -80,8 +80,15 @@ router.put('/', [
 router.get('/', async (req, res) => {
     try{
         const specialists = await db.listSpecialist();
+        const noId = ({id_specialist, ...rest}) => rest;
+            const specialist = specialists.map(item => {
+                return {
+                    id: item.id_specialist,
+                    ...noId(item)
+                }
+            });
         if (specialists.length > 0){
-            return res.status(200).send(specialists);
+            return res.status(200).send(specialist);
         }else{
             return res.status(400).send({message: 'Sem dados cadastrados'});
         }
@@ -94,12 +101,17 @@ router.get('/:id_specialist', async (req, res) => {
     try{
         const specialists = await db.listSpecialist();
         const {id_specialist} = req.params;
-        const specialist = specialists.find(item => {
+        const specialistFound = specialists.find(item => {
             if (item.id_specialist == id_specialist){
                 return item;
             }
-        })
-        if (!!specialist){
+        });
+        if (!!specialistFound){
+            const noId = ({id_specialist, ...rest}) => rest;
+            const specialist = {
+                id: specialistFound.id_specialist,
+                ...noId(specialistFound)
+            }
             return res.status(200).send(specialist);
         }else{
             return res.status(400).send({message: 'Especialista não encontrado'});
