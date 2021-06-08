@@ -52,7 +52,7 @@ router.put('/', [
         return res.status(400).send({errors: errors.array()})
     }
 
-    const {schedule_date, attendance_date, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance} = req.body;
+    const {attendance_date, attendance_time, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance} = req.body;
     const datetime = `${attendance_date} ${attendance_time}`;
     try{
         await db.updateAttendance(datetime, attendance_date, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance);
