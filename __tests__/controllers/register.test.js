@@ -12,9 +12,9 @@ describe('Teste para validação de hora', () => {
   })
 })
 
-describe('Testando GET de register', () => {
-  test('siduhfsi', async () => {
-    const res = await resquest(app).get('/client')
+describe('Testando GET', () => {
+  test('Deve pegar a rota principal', async () => {
+    const res = await request(app).get('/')
 
     expect(res.statusCode).toEqual(200)
     expect(res.body).toHaveProperty('message')
