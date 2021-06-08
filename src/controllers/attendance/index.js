@@ -1,21 +1,28 @@
 import express from 'express';
 import db from '../../services/attendance/index.js'
 import {body, validationResult} from 'express-validator';
+import {validateTime} from '../../helpers/validateHour.js';
 
 const router = express.Router();
 
 router.post('/', [
-    body('attendance_date').isDate().withMessage('Entra com o formato data para a data do atendimento'),
-    body('attendance_value').isNumeric().withMessage('Entre com um valor numérico para o attendance_value'),
-    body('attendance_value').isLength({min: 1}).withMessage('Attendance_value vazio'),
+    body('attendance_date').isDate().withMessage('Entre com formato de data válido para o atendimento'),
+    body('attendance_time').custom(time => {
+        const timeValidate = validateTime(time);
+        if(!timeValidate) return Promise.reject('Entre com formato de hora válido para o atendimento');
+        return true;
+    }),
+    body('attendance_value').isNumeric().withMessage('Entre com um valor numérico para o valor do atendimento'),
+    body('attendance_value').isLength({min: 1}).withMessage('Valor não pode ser vazio'),
 ] , async (req,res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
         return res.status(400).send({errors: errors.array()})
     }
-    const {attendance_date, attendance_value, FK_id_med_reg, FK_id_specialist} = req.body;
+    const {attendance_date, attendance_time, attendance_value, FK_id_med_reg, FK_id_specialist} = req.body;
+    const datetime = `${attendance_date} ${attendance_time}`;
     try{
-        await db.insertAttendance(attendance_date, attendance_value, FK_id_med_reg, FK_id_specialist);
+        await db.insertAttendance(datetime, attendance_value, FK_id_med_reg, FK_id_specialist);
         res.status(201).send({message: `Agendamento realizado com sucesso!`});
     }catch(err){
         res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
@@ -23,9 +30,15 @@ router.post('/', [
 });
 
 router.put('/', [
-    body('attendance_date').isDate().withMessage('Entra com o formato data para a data do atendimento'),
-    body('attendance_value').isNumeric().withMessage('Entre com um valor numérico para o attendance_value'),
-    body('attendance_value').isLength({min: 1}).withMessage('Attendance_value vazio'),
+    body('attendance_date').isDate().withMessage('Entre com formato de data válido para o atendimento'),
+    body('attendance_time').isDate().withMessage('Entre com formato de hora válido para o atendimento'),
+    body('attendance_value').isNumeric().withMessage('Entre com um valor numérico para o valor do atendimento'),
+    body('attendance_value').isLength({min: 1}).withMessage('Valor não pode ser vazio'),
+    body('attendance_time').custom(time => {
+        const timeValidate = validateTime(time);
+        if(!timeValidate) return Promise.reject('Entre com formato de hora válido para o atendimento');
+        return true;
+    }),
     body('attendance_status').custom(status => {
         const status_allow = ['AGENDADO', 'REALIZADO', 'CANCELADO'];
         if (!status_allow.includes(status.toUpperCase())){
@@ -40,8 +53,9 @@ router.put('/', [
     }
 
     const {schedule_date, attendance_date, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance} = req.body;
+    const datetime = `${attendance_date} ${attendance_time}`;
     try{
-        await db.updateAttendance(schedule_date, attendance_date, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance);
+        await db.updateAttendance(datetime, attendance_date, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance);
         res.status(201).send({message: `Agendamento atualizado com sucesso!`});
     }catch(err){
         res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
