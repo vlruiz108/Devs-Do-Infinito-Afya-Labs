@@ -50,7 +50,7 @@ router.put('/', verifyJWT, [
         });
         const checkSameEmail = await db.checkSameEmail(user_email, id_login);
         if(checkSameEmail.length < 1 && checkEmail) {
-            return res.status(401).send({message: 'Email de usuário já cadastrado no sistema.'});
+            return res.status(409).send({message: 'Email de usuário já cadastrado no sistema.'});
         }
     
         await db.updateUser(user_email, password, user_name, id_login);
