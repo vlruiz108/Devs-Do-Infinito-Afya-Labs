@@ -1,5 +1,5 @@
 import express from 'express';
-import db from '../../modal/profession/index.js';
+import db from '../../services/profession/index.js';
 import {body, validationResult} from 'express-validator';
 
 const router = express.Router();
@@ -24,7 +24,14 @@ router.post('/', [
 router.get('/', async (req, res) => {
   try {
     const professions = await db.listProfession();
-    res.send(professions);
+    const noId = ({id_profession, ...rest}) => rest;
+    const profession = professions.map(item => {
+        return {
+            id: item.id_profession,
+            ...noId(item)
+        }
+    });
+    res.send(profession);
   } catch(err) {
     res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
   }

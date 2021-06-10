@@ -8,7 +8,6 @@ const router = express.Router();
 router.post('/', [
     body('user_email').isEmail().withMessage('Informe um e-mail válido.'),
     body('user_email').custom(async (email) => {   
-        console.log('--------------POST1---------------')
         const users = await db.listUser();
         const checkEmail = users.some(item => {
             return item.user_email === email;
@@ -18,7 +17,6 @@ router.post('/', [
     body('user_pass').isLength({min: 6, max: 15}).withMessage('Senha deve conter de 6 a 15 caracteres.'),
     body('user_name').isLength({min: 1}).withMessage('Nome não pode ser vazio.'),
 ], async (req, res) => {
-    console.log('--------------POST---------------')
    const errors = validationResult(req);
     if(!errors.isEmpty()) {
         return res.status(400).send({erros: errors.array()});
