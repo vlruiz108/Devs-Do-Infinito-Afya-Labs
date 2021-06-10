@@ -37,9 +37,9 @@ describe('Testando GET', () => {
 describe("Teste para registro de usuário", () => {
   test("Should response the POST method", done => {
     const payload = {
-        "password": "35415435",
-        "user_name": "Mariazinha123",
-        "user_email": "mariazinhaaaaaaa@gmail.com"
+        "password": 12345678,
+        "user_name": "Teste",
+        "user_email": Math.random() + "@gmail.com"
     }
     request(app)
       .post("/register/")
@@ -51,8 +51,49 @@ describe("Teste para registro de usuário", () => {
   },10000);
 });
 
-// describe('Sample Test', () => {
-//   it('should test that true === true', () => {
-//     expect(true).toBe(true)
-//   })
-// })
+describe("Teste para registro de usuário", () => {
+  test("Should response the POST method", done => {
+    const payload = {
+        "password": 12345678,
+        "user_email": "0.6781294272548697@gmail.com"
+    }
+    request(app)
+      .post("/login")
+      .send(payload)
+      .then(response => {
+        expect(response.statusCode).toBe(200);
+        done();
+      });
+  },10000);
+});
+
+describe("Teste para registro de usuário", () => {
+  test("Should response the POST method", done => {
+    const payload = {
+        "password": 12345678,
+        "user_email": "0.6781294272548697@gmail.com"
+    }
+    let token;
+    request(app)
+      .post("/login")
+      .send(payload)
+      .then(response => {
+        expect(response.statusCode).toBe(200);
+        token = response.body.token;
+        done();
+      });
+      console.log("======================================");
+    const payload2 = {
+      "profession_name": "Carpinteiro",
+    }
+    request(app)
+      .post("/profession")
+      .send(payload2)
+      .set({'Authorization': `Bearer ${token}`})
+      .set({'Content-Type': 'application/json'})
+      .then(response => {
+        expect(response.statusCode).toBe(201);
+        done();
+      });
+  },10000);
+});
