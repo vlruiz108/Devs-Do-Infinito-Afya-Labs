@@ -7,10 +7,10 @@
   "description": "Backend construido em Node.js para criação de API rest para um projeto de sistema de atendimento medico como desafio final da afya-labs em parceria com a Gama Academy",
   "main": "index.js",
   "scripts": {
-    "test": "jest --collectCoverage",
-    "dev": "nodemon ./src index.js",
-    "build": "sucrase ./src -d ./dist --transforms imports && cp ./src/api-doc.json ./dist/api-doc.json",
-    "start": "node ./dist/index.js"
+    "test": "jest --detectOpenHandles --forceExit",
+    "dev": "nodemon ./src main.js",
+    "build": "sucrase ./src -d ./dist --transforms imports",
+    "start": "npm run build && node ./dist/main.js"
   },
   "repository": {
     "type": "git",

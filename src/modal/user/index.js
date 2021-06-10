@@ -5,6 +5,7 @@ async function insertUser(user_email, user_pass, user_name) {
     const sql = 'CALL sp_registerUsers(?, ?, ?);';
     const newUser = [user_email, user_pass, user_name];
     await conn.query(sql, newUser);
+    // conn.end();
 }
 
 async function listUser() {

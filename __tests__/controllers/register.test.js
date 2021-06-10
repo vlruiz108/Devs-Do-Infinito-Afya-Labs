@@ -1,6 +1,6 @@
 const request = require("supertest");
-const app = require("../../dist/index");
-const data = require("../../dist/helpers/validateHour")
+const app = require("../../dist/index").create();
+const data = require("../../dist/helpers/validateHour");
 
 describe('Teste para validação de hora', () => {
   test('O teste deve retornar vazio devido ao formato errado da hora', () => {
@@ -34,22 +34,22 @@ describe('Testando GET', () => {
 //   });
 // });
 
-// describe("Teste para registro de usuário", () => {
-//   test("Should response the POST method", done => {
-//     const payload = {
-//         "user_pass": "senha123",
-//         "user_name": "Joao",
-//         "user_email": "joao@gmail.com"
-//     }
-//     request(app)
-//       .post("/register")
-//       .send(payload)
-//       .then(response => {
-//         expect(response.statusCode).toBe(201);
-//         done();
-//       });
-//   });
-// });
+describe("Teste para registro de usuário", () => {
+  test("Should response the POST method", done => {
+    const payload = {
+        "password": "35415435",
+        "user_name": "Mariazinha123",
+        "user_email": "mariazinhaaaaaaa@gmail.com"
+    }
+    request(app)
+      .post("/register/")
+      .send(payload)
+      .then(response => {
+        expect(response.statusCode).toBe(201);
+        done();
+      });
+  },10000);
+});
 
 // describe('Sample Test', () => {
 //   it('should test that true === true', () => {
