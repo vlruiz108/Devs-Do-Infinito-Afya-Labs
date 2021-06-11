@@ -5,11 +5,13 @@ async function insertSpecialist(zip_code, street, number, district, locale, uf, 
     const sql = 'CALL sp_insertSpecialist(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const dataNewSpecialist = [zip_code, street, number, district, locale, uf, register, specialist_name, phone, cellphone, email, id_profession];
     await conn.query(sql, dataNewSpecialist);
+    conn.end();
 }
 
 async function listSpecialist() {
     const conn = await database.connect();
     const [rows] = await conn.query('SELECT * FROM vw_list_specialists');
+    conn.end();
     return rows;
 }
 
@@ -18,12 +20,14 @@ async function updateSpecialist(zip_code, street, number, district, locale, uf, 
     const sql = 'CALL sp_updateSpecialist(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const dataNewSpecialistInfo = [zip_code, street, number, district, locale, uf, id_address, register, specialist_name, phone, cellphone, email, FK_id_profession, id_specialist];
     await conn.query(sql, dataNewSpecialistInfo);
+    conn.end();
 }
 
 async function deleteSpecialist(id_specialist) {
     const conn = await database.connect();
     const sql = 'CALL sp_deleteSpecialist(?)';
     await conn.query(sql, id_specialist);
+    conn.end();
 }
 
 export default {insertSpecialist, listSpecialist, updateSpecialist, deleteSpecialist}

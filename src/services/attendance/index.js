@@ -5,11 +5,13 @@ async function insertAttendance(attendance_date, attendance_value, FK_id_med_reg
     const sql = 'CALL sp_insertAttendance(?, ?, ?, ?)';
     const dataNewAttendance = [attendance_date, attendance_value, FK_id_med_reg, FK_id_specialist];
     await conn.query(sql, dataNewAttendance);
+    conn.end();
 }
 
 async function listAttendance() {
     const conn = await database.connect();
     const [rows] = await conn.query('SELECT * FROM vw_list_attendances');
+    conn.end();
     return rows;
 }
 
@@ -18,6 +20,7 @@ async function updateAttendance(schedule_date, attendance_date, attendance_value
     const sql = 'CALL sp_updateAttendance(?, ?, ?, ?, ?, ?, ?)';
     const dataNewAttendanceInfo = [schedule_date, attendance_date, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance];
     await conn.query(sql, dataNewAttendanceInfo);
+    conn.end();
 }
 
 export default {insertAttendance, listAttendance, updateAttendance}
