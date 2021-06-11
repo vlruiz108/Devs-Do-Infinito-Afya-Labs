@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
             ...noId(item)
         }
     });
-    res.send(profession);
+    res.status(200).send(profession);
   } catch(err) {
     res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
   }
