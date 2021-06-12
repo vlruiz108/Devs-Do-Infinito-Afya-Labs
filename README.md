@@ -11,7 +11,7 @@
 
 
 
-## Projeto: Criar um sistema para um consultório controlar o cadastro de seus clientes, atendimentos e prontuário dos pacientes.
+## Desafio: Criar um sistema para um consultório controlar o cadastro de seus clientes, atendimentos e prontuário dos pacientes.
 
 ### :round_pushpin:Backend
 
@@ -33,7 +33,7 @@ Tabela de conteúdos
    * [Backend](#Backend)
    * [Features](#features)
    * [Instalação](#instalacao)
-   * [Como rodar a aplicação](#como-rodar-a-aplicaçao)
+   * [Como rodar a aplicação](#como-rodar-a-aplicacao)
    * [Como executar a suíte de testes](#como-executar-a-suite-de-testes)
    * [Como executar a OpenApi](#como-executar-a-openapi)
    * [Tecnologias](#tecnologias)
@@ -69,9 +69,9 @@ Instalar MySql Workbench: [MySql Workbench](https://dev.mysql.com/downloads/work
 
 ### Como rodar a aplicação
 
-- Certifique de ter um arquivo .env na pasta raiz com as configurações de banco de dados.
+Certifique de ter um arquivo .env na pasta raiz com as configurações de banco de dados.
 
-:triangular_flag_on_post: - Instale as Dependências
+:triangular_flag_on_post: Instale as Dependências
   
   ```bash
   yarn build
@@ -103,6 +103,7 @@ Instalar MySql Workbench: [MySql Workbench](https://dev.mysql.com/downloads/work
   ```
 
 ### Como executar a OpenApi
+[![dependencies Status](https://status.david-dm.org/gh/swagger-api/swagger-editor.svg)](https://david-dm.org/swagger-api/swagger-editor)
 
 
 Instalação
