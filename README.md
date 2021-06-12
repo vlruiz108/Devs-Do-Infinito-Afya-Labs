@@ -57,42 +57,110 @@ Tabela de conteúdos
 ### :round_pushpin: Instalação
 
 Pré requisitos
-Instalar o Node: https://nodejs.org
+Git: [Git](https://git-scm.com)
 
-Instalar vs codehttps://code.visualstudio.com/download 
+Instalar o Node: [Node](https://nodejs.org)
 
-Instalar MySql https://www.mysql.com/downloads/
+Instalar Visual Studio Code: [Visual Studio Code](https://code.visualstudio.com/download)
 
-Instalar MySql Workbench  https://dev.mysql.com/downloads/workbench/
+Instalar MySql: [MySql](https://www.mysql.com/downloads/)
 
-:triangular_flag_on_post: Como usar
+Instalar MySql Workbench: [MySql Workbench](https://dev.mysql.com/downloads/workbench/)
 
-:ballot_box_with_check: Utilizar o comando npm install
+### Como rodar a aplicação
 
-:ballot_box_with_check: Usar o comando npm run dev
+- Certifique de ter um arquivo .env na pasta raiz com as configurações de banco de dados.
 
-:ballot_box_with_check:
+:triangular_flag_on_post: - Instale as Dependências
+  
+  ```bash
+  yarn build
+  ```
+  ```bash
+  npm run build
+  ```
+  
+  - Iniciar a aplicação
 
-:ballot_box_with_check:
+  ```bash
+  yarn start
+  ```
+   ```bash
+  npm start
+  ```
 
-:ballot_box_with_check:
+### Como executar a suíte de testes
+
+  - [Certifique-se de que executou os comandos anteriores](#como-rodar-a-aplicação)
+  
+  - Agora execute
+  
+  ```bash
+  yarn test
+  ```
+  ```bash
+  npm test
+  ```
+
+### Como executar o Swagger
 
 
 
 
+Instalação
+```bash
+npm install -g swagger
+```
+Uso
+```
+swagger-markdown [-h] [-v] -i [-o] [--skip-info]
+
+Options:
+  -h, --help      Show this help message and exit.
+  -v, --version   Show program's version number and exit.
+  -i , --input    Path to the swagger yaml file
+  -o , --output   Path to the resulting md file
+  --skip-info     Skip the title, description, version etc, whatever is in the info block.
+
+```
+
+Npx (não requer instalação)
+
+```bash
+npx swagger-markdown -i ./basic-auth.yaml
+```
+
+Exemplo
 
 
+```bash
+swagger-markdown -i path/to/swagger/file.yaml
+```
+
+Por padrão, ele criará o novo arquivo no mesmo diretório com o mesmo nome do arquivo swagger, mas com a extensão .md. Portanto, se o arquivo swagger for colocado no project/api-doc/swagger.yamlnovo arquivo será criado comoproject/api-doc/swagger
+
+Você também pode usá-lo como um script npm em seu package.json:
+
+```bash
+npm i --save-dev swagger-markdown
+```
+
+```json
+{
+    "scripts": {
+        "md-docs": "swagger-markdown -i path/to/swagger.yaml",
+        //...
+    }
+}
+```
+
+```bash
+npm run md-docs
+```
+### Relacionado
 
 
-
-Entrando na pasta do projeto bash cd + nome da pasta
-
-Configurando swagger em seu computador Usar o código npm i swagger-ui-express
-
-
-
-
-
+* [swagger-markdown-ui](https://swagger-markdown-ui.netlify.app/))
 
 
 
