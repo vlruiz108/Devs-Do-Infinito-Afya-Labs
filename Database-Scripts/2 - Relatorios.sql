@@ -42,9 +42,14 @@ SELECT * FROM tbl_specialists
     JOIN tbl_professions ON tbl_specialists.FK_id_profession = tbl_professions.id_profession;
     
 CREATE VIEW vw_list_attendances AS
-SELECT * FROM tbl_attendances
-	JOIN tbl_med_regs ON tbl_attendances.FK_id_med_reg = tbl_med_regs.id_med_reg
-    JOIN tbl_specialists ON tbl_attendances.FK_id_specialist = tbl_specialists.id_specialist;
+SELECT a.id_attendance, a.schedule_date, a.attendance_date, a.attendance_value, a.attendance_status, 
+c.specialist_name, c.register as register_specialist, d.email as email_client, 
+d.cellphone as cellphone_client, d.cpf as cpf_client FROM tbl_attendances a
+	JOIN tbl_med_regs b ON a.FK_id_med_reg = b.id_med_reg
+    JOIN tbl_specialists c ON a.FK_id_specialist = c.id_specialist
+    JOIN tbl_clients d ON d.id_client = b.FK_id_client;
+    
+    select * from vw_list_attendances;
 
 #Procedures dos relatorios
 DELIMITER $$
