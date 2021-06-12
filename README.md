@@ -5,15 +5,20 @@
 ![GitHub](https://img.shields.io/github/license/vlruiz108/Devs-Do-Infinito-Afya-Labs?style=plastic)
 ![NPM](https://img.shields.io/npm/l/express?style=plastic)
 
-
-
 # Devs-Do-Infinito-Afya-Labs
 
+## :busts_in_silhouette: Autores
+- [Ana Vitória](https://github.com/gleyson-gama)
+- [Felipe Spuza](https://github.com/FelipeSSac)
+- [João Pedro Fiorelli](https://github.com/JoaoFiorelli)
+- [Luis Felipe Santos](https://github.com/LFelipe-sb)
+- [Vanessa Ruiz](https://github.com/vlruiz108)
 
 
-## Desafio: Criar um sistema para um consultório controlar o cadastro de seus clientes, atendimentos e prontuário dos pacientes.
 
-### :round_pushpin:Backend
+## 🎯 Desafio: Criar um sistema para um consultório controlar o cadastro de seus clientes, atendimentos e prontuário dos pacientes.
+
+### :round_pushpin:🔚 Back-end
 
 🚀 Modelagem de dados para: criação de usuário, cadatro de clientes, cadastro de especialistas, cadastro de profissão, lançamento de dos atendimentos,
 registro de protuario e registro de histórico.
