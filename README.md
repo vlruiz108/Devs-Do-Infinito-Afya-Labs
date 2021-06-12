@@ -9,6 +9,8 @@
 
 # Devs-Do-Infinito-Afya-Labs
 
+![logo AGMed](https://github.com/vlruiz108/Devs-Do-Infinito-Afya-Labs/blob/main/Logo.PNG)
+
 ## Criar um sistema para um consultório controlar o cadastro de seus clientes, atendimentos e prontuário dos pacientes.
 
 ### :round_pushpin:Backend
@@ -102,7 +104,7 @@ Instalar MySql Workbench: [MySql Workbench](https://dev.mysql.com/downloads/work
   npm test
   ```
 
-### Como executar o Swagger
+### Como executar o OpenApi
 
 
 
@@ -137,7 +139,9 @@ Exemplo
 swagger-markdown -i path/to/swagger/file.yaml
 ```
 
-Por padrão, ele criará o novo arquivo no mesmo diretório com o mesmo nome do arquivo swagger, mas com a extensão .md. Portanto, se o arquivo swagger for colocado no project/api-doc/swagger.yamlnovo arquivo será criado comoproject/api-doc/swagger
+Por padrão, ele criará o novo arquivo no mesmo diretório com o mesmo nome do arquivo swagger, mas com a extensão .md. 
+
+Portanto, se o arquivo swagger for colocado no project/api-doc/swagger.yamlnovo arquivo será criado comoproject/api-doc/swagger
 
 Você também pode usá-lo como um script npm em seu package.json:
 
@@ -160,7 +164,7 @@ npm run md-docs
 ### Relacionado
 
 
-* [swagger-markdown-ui](https://swagger-markdown-ui.netlify.app/))
+* [https://devs-agmed-afya.herokuapp.com](https://devs-agmed-afya.herokuapp.com)
 
 
 
