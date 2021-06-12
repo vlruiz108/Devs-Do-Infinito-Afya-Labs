@@ -16,33 +16,6 @@ beforeAll((done) => {
     });
 });
 
-describe('DELETE /profession', () => {
-  test('It should require authorization (DELETE)', () => {
-    return request(app)
-      .delete('/profession/:id_profession')
-      .send({
-        "id_profession": 1
-      })
-      .then((response) => {
-        expect(response.statusCode).toBe(401);
-      });
-  });
-
-  // test('It should delete a profession', () => {
-  //   return request(app)
-  //     .delete('/profession/:id_profession')
-  //     .send({
-  //       "id_profession": 1
-  //     })
-  //     .set('Authorization', `Bearer ${token}`)
-  //     .then((response) => {
-  //       console.log(response)
-  //       expect(response.statusCode).toBe(200);
-  //       expect(response.body).toEqual({message: 'Profissão excluida com sucesso.'});
-  //     });
-  // });
-});
-
 describe('POST /profession', () => {
   test('The test should return an error due to validations', () => {
     return request(app)
@@ -153,4 +126,30 @@ describe('PUT /profession', () => {
         expect(response.statusCode).toBe(401);
       });
   })
+});
+
+describe('DELETE /profession', () => {
+  test('It should require authorization (DELETE)', () => {
+    return request(app)
+      .delete('/profession/:id_profession')
+      .send({
+        "id_profession": 1
+      })
+      .then((response) => {
+        expect(response.statusCode).toBe(401);
+      });
+  });
+
+  test('It should delete a profession', () => {
+    return request(app)
+      .delete('/profession/:id_profession')
+      .send({
+        "id_profession": 1
+      })
+      .set('Authorization', `Bearer ${token}`)
+      .then((response) => {
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toEqual({message: 'Profissão excluida com sucesso.'});
+      });
+  });
 });

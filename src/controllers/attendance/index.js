@@ -31,7 +31,6 @@ router.post('/', [
 
 router.put('/', [
     body('attendance_date').isDate().withMessage('Entre com formato de data válido para o atendimento'),
-    body('attendance_time').isDate().withMessage('Entre com formato de hora válido para o atendimento'),
     body('attendance_value').isNumeric().withMessage('Entre com um valor numérico para o valor do atendimento'),
     body('attendance_value').isLength({min: 1}).withMessage('Valor não pode ser vazio'),
     body('attendance_time').custom(time => {
@@ -55,8 +54,8 @@ router.put('/', [
     const {attendance_date, attendance_time, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance} = req.body;
     const datetime = `${attendance_date} ${attendance_time}`;
     try{
-        await db.updateAttendance(datetime, attendance_date, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance);
-        res.status(201).send({message: `Agendamento atualizado com sucesso!`});
+        await db.updateAttendance(datetime, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance);
+        res.status(200).send({message: `Agendamento atualizado com sucesso!`});
     }catch(err){
         res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
     }
