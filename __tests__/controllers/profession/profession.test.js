@@ -16,24 +16,31 @@ beforeAll((done) => {
     });
 });
 
-describe('GET /profession', () => {
-  test('It should require authorization', () => {
+describe('DELETE /profession', () => {
+  test('It should require authorization (DELETE)', () => {
     return request(app)
-      .get('/profession')
+      .delete('/profession/:id_profession')
+      .send({
+        "id_profession": 1
+      })
       .then((response) => {
         expect(response.statusCode).toBe(401);
       });
   });
 
-  test('It responds with JSON', () => {
-    return request(app)
-      .get('/profession')
-      .set('Authorization', `Bearer ${token}`)
-      .then((response) => {
-        expect(response.statusCode).toBe(200);
-        expect(response.type).toBe('application/json');
-      });
-  });
+  // test('It should delete a profession', () => {
+  //   return request(app)
+  //     .delete('/profession/:id_profession')
+  //     .send({
+  //       "id_profession": 1
+  //     })
+  //     .set('Authorization', `Bearer ${token}`)
+  //     .then((response) => {
+  //       console.log(response)
+  //       expect(response.statusCode).toBe(200);
+  //       expect(response.body).toEqual({message: 'Profissão excluida com sucesso.'});
+  //     });
+  // });
 });
 
 describe('POST /profession', () => {
@@ -74,6 +81,26 @@ describe('POST /profession', () => {
   })
 });
 
+describe('GET /profession', () => {
+  test('It should require authorization', () => {
+    return request(app)
+      .get('/profession')
+      .then((response) => {
+        expect(response.statusCode).toBe(401);
+      });
+  });
+
+  test('It responds with JSON', () => {
+    return request(app)
+      .get('/profession')
+      .set('Authorization', `Bearer ${token}`)
+      .then((response) => {
+        expect(response.statusCode).toBe(200);
+        expect(response.type).toBe('application/json');
+      });
+  });
+});
+
 describe('PUT /profession', () => {
   test('The test should return an error due to validations (name)', () => {
     return request(app)
@@ -110,7 +137,7 @@ describe('PUT /profession', () => {
       })
       .set('Authorization', `Bearer ${token}`)
       .then((response) => {
-        // expect(response.statusCode).toBe(201);
+        expect(response.statusCode).toBe(200);
         expect(response.body).toEqual({message: 'Profissão atualizada com sucesso.'});
       });
   });
