@@ -1,6 +1,6 @@
 import express from 'express';
 import {body, validationResult} from 'express-validator';
-import db from '../../modal/user/index.js';
+import db from '../../services/user/index.js';
 import {verifyJWT} from '../../middlewares/jwt.js';
 
 const router = express.Router();
@@ -58,6 +58,17 @@ router.put('/', verifyJWT, [
     } catch(err) {
         res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
     }
+});
+
+router.delete('/:id_login', async (req, res) => {
+    const {id_login} = req.params;
+
+    try {
+        await db.deleteUser(id_login);
+        res.status(200).send({message: 'Usuário excluido com sucesso.'});
+    } catch(err) {
+        res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
+    }    
 });
 
 export default router;
