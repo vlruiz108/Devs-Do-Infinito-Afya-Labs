@@ -9,9 +9,9 @@
 
 # Devs-Do-Infinito-Afya-Labs
 
-![logo AGMed](https://github.com/vlruiz108/Devs-Do-Infinito-Afya-Labs/blob/main/Logo.PNG)
 
-## Criar um sistema para um consultório controlar o cadastro de seus clientes, atendimentos e prontuário dos pacientes.
+
+## Projeto: Criar um sistema para um consultório controlar o cadastro de seus clientes, atendimentos e prontuário dos pacientes.
 
 ### :round_pushpin:Backend
 
@@ -28,18 +28,16 @@ registro de protuario e registro de histórico.
 
 Tabela de conteúdos
 =================
+
 <!--ts-->
    * [Backend](#Backend)
    * [Features](#features)
    * [Instalação](#instalacao)
-   * [Como usar](#como-usar)
-      * [Pre Requisitos](#pre-requisitos)
-      * [Local files](#local-files)
-      * [Remote files](#remote-files)
-      * [Multiple files](#multiple-files)
-   * [Tests](#testes)
-   * [Swagger](#swagger)
+   * [Como rodar a aplicação](#como-rodar-a-aplicaçao)
+   * [Como executar a suíte de testes](#como-executar-a-suite-de-testes)
+   * [Como executar a OpenApi](#como-executar-a-openapi)
    * [Tecnologias](#tecnologias)
+   * [Relacionado](#relacionado)
 <!--te-->
 
 <h4 align="center"> 
@@ -104,9 +102,7 @@ Instalar MySql Workbench: [MySql Workbench](https://dev.mysql.com/downloads/work
   npm test
   ```
 
-### Como executar o OpenApi
-
-
+### Como executar a OpenApi
 
 
 Instalação
@@ -165,6 +161,8 @@ npm run md-docs
 
 
 * [https://devs-agmed-afya.herokuapp.com](https://devs-agmed-afya.herokuapp.com)
+
+![logo AGMed](https://github.com/vlruiz108/Devs-Do-Infinito-Afya-Labs/blob/main/Logo.PNG)
 
 
 
