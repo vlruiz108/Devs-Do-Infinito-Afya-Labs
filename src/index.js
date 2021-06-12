@@ -28,3 +28,6 @@ export function start() {
         console.log('Servidor online');
     });
 }
+
+create();
+start();
