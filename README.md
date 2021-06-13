@@ -8,7 +8,7 @@
 # Devs-Do-Infinito-Afya-Labs
 
 ## :busts_in_silhouette: Autores
-- [Ana Vitória](https://github.com/gleyson-gama)
+- [Ana Vitória](https://github.com/anavieich)
 - [Felipe Spuza](https://github.com/FelipeSSac)
 - [João Pedro Fiorelli](https://github.com/JoaoFiorelli)
 - [Luis Felipe Santos](https://github.com/LFelipe-sb)
