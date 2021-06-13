@@ -31,7 +31,6 @@ router.post('/', [
 
 router.put('/', [
     body('attendance_date').isDate().withMessage('Entre com formato de data válido para o atendimento'),
-    body('attendance_time').isDate().withMessage('Entre com formato de hora válido para o atendimento'),
     body('attendance_value').isNumeric().withMessage('Entre com um valor numérico para o valor do atendimento'),
     body('attendance_value').isLength({min: 1}).withMessage('Valor não pode ser vazio'),
     body('attendance_time').custom(time => {

@@ -60,4 +60,15 @@ router.put('/', verifyJWT, [
     }
 });
 
+router.delete('/:id_login', async (req, res) => {
+    const {id_login} = req.params;
+
+    try {
+        await db.deleteUser(id_login);
+        res.status(200).send({message: 'Usuário excluido com sucesso.'});
+    } catch(err) {
+        res.status(500).send({message: `Houve um erro no banco de dados. ${err}`});
+    }    
+});
+
 export default router;
