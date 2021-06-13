@@ -46,7 +46,7 @@ Tabela de conteúdos
 <!--te-->
 
 <h4 align="center"> 
-	🚧  Application Select 🚀 Em construção...  🚧
+	
 </h4>
 
 ### :round_pushpin: Features
