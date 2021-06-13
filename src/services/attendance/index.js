@@ -15,10 +15,10 @@ async function listAttendance() {
     return rows;
 }
 
-async function updateAttendance(schedule_date, attendance_date, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance) {
+async function updateAttendance(attendance_date, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance) {
     const conn = await database.connect();
-    const sql = 'CALL sp_updateAttendance(?, ?, ?, ?, ?, ?, ?)';
-    const dataNewAttendanceInfo = [schedule_date, attendance_date, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance];
+    const sql = 'CALL sp_updateAttendance(?, ?, ?, ?, ?, ?)';
+    const dataNewAttendanceInfo = [attendance_date, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance];
     await conn.query(sql, dataNewAttendanceInfo);
     conn.end();
 }
