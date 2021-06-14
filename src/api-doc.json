@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Esta é uma API desenvolvida para gerenciar uma aplicação de atendimentos médicos. Sua propósta é permitir o acesso a funcionalidades e informações de pacientes, especialistas, atendimentos e históricos. O projeto também é um desafio lançado pela Afya durante o processo de treinamento e recrutamento em parceria com a Gama Academy. Para mais detalhes da aplicação, acesse o repositório no Github, disponível em: [https://github.com/vlruiz108/Devs-Do-Infinito-Afya-Labs](https://github.com/vlruiz108/Devs-Do-Infinito-Afya-Labs). Esta aplicação está disponível no Heroku e seu banco de dados está hospedado na Azure. Todas as informações nela contidas, são apenas para fins didáticos e de aprendizado. Caso tenha interesse em ver a aplicação em operação acesse: [https://github.com/vlruiz108/Devs-Do-Infinito-Afya-Labs](https://github.com/vlruiz108/Devs-Do-Infinito-Afya-Labs). ",
+    "description": "This is an API designed to manage a healthcare app. Its purpose is to allow access to characteristics and information about patients, specialists, appointments and histories. The project is also a challenge launched by Afya during the training and recruitment process in partnership with Gama Academy. For more details about the app, access or repository on Github, available at: [https://github.com/vlruiz108/Devs-Do-Infinito-Afya-Labs](https://github.com/vlruiz108/Devs-Do-Infinito-Afya-Labs). This app is available on Heroku and its database is located on Azure. All information contained herein is for educational and learning purposes only. If you are interested in seeing an app in operation, go to: [https://agmed-front-dev.herokuapp.com/](https://agmed-front-dev.herokuapp.com/). ",
     "version": "1.0.0",
     "title": "AGMED API - Afya Labs",
     "contact": {
@@ -16,23 +16,23 @@
   "tags": [
     {
       "name": "Register",
-      "description": "Cadastro, atualização e exclusão de usuários adminitrativos do sistema"
+      "description": "Create, update and delete of administrative users from the system"
     },
     {
       "name": "Login",
-      "description": "Acesso ao sistema e redefinição de senha"
+      "description": "System access and password reset"
     },
     {
       "name": "Professions",
-      "description": "Cadastro, atualização, listagem e exclusão das especialidades médicas"
+      "description": "Create, read, update and delete of medical specialties"
     },
     {
       "name": "Clients",
-      "description": "Cadastro, atualização, listagem e exclusão dos clientes"
+      "description": "Create, read, update and delete of clients"
     },
     {
       "name": "Specialists",
-      "description": "Cadastro, atualização, listagem e exclusão dos especialistas médicos"
+      "description": "Create, read, update and delete of specialists"
     },
     {
       "name": "Attendances",
@@ -40,16 +40,15 @@
     },
     {
       "name": "Historics",
-      "description": "Cadastro, atualização e listagem dos históricos de atendimentos realizados"
+      "description": "Create, read and update the history of care provided"
     },
     {
       "name": "Reports",
-      "description": "Emissão de relatórios estratégicos da aplicação"
+      "description": "Strategic application reports"
     }
   ],
   "schemes": [
-    "https",
-    "http"
+    "https"
   ],
   "paths": {
     "/register": {
@@ -57,7 +56,7 @@
         "tags": [
           "Register"
         ],
-        "summary": "Adiciona um novo usuário administradtivo no sistema",
+        "summary": "Add a new admin user in the system",
         "description": "",
         "operationId": "addUser",
         "consumes": [
@@ -70,22 +69,43 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Usuário é o responsável por manipular o sistema",
+            "description": "User is responsible for manipulating the system",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/postUser"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Criado com sucesso"
+            "description": "successfully created",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
           },
           "400": {
-            "description": "Inputs inválidos"
+            "description": "Invalid Inputs",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
           },
           "500": {
-            "description": "Erro interno no servidor"
+            "description": "Internal server error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
           }
         }
       },
@@ -93,7 +113,7 @@
         "tags": [
           "Register"
         ],
-        "summary": "Atualiza um usuário cadastrado",
+        "summary": "Update a registered user",
         "description": "",
         "operationId": "updateUser",
         "consumes": [
@@ -106,93 +126,56 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Usuário é o responsável por manipular o sistema",
+            "description": "User is responsible for manipulating the system",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/putUser"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Alterado com sucesso"
+            "description": "successfully changed",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Inputs",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
           },
           "401": {
-            "description": "Usuário não autenticado"
+            "description": "Unauthenticated User",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
           },
           "409": {
-            "description": "Usuário já cadastrado"
+            "description": "User already registered",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
           },
           "500": {
-            "description": "Erro interno no servidor"
-          }
-        },
-        "security": [
-          {
-            "agmed_auth": [
-              "write:pets"
-            ]
-          }
-        ]
-      }
-    },
-    "/register/{id_login}": {
-      "delete": {
-        "tags": [
-          "Register"
-        ],
-        "summary": "Exclui um usuário pelo número de ID",
-        "description": "Para uma resposta válida, tente IDs inteiros com valor inteiro positivo. Valores negativos ou não inteiros irão gerar erros de API",
-        "operationId": "deleteUser",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id_login",
-            "in": "path",
-            "description": "ID de um usuário que precisa ser excluido",
-            "required": true,
-            "type": "integer",
-            "minimum": 1,
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Alterado com sucesso"
-          },
-          "401": {
-            "description": "Usuário não autenticado"
-          },
-          "500": {
-            "description": "Erro interno no servidor"
-          }
-        },
-        "security": [
-          {
-            "agmed_auth": [
-              "write:pets"
-            ]
-          }
-        ]
-      }
-    },
-    "/store/inventory": {
-      "get": {
-        "tags": [
-          "store"
-        ],
-        "summary": "Returns pet inventories by status",
-        "description": "Returns a map of status codes to quantities",
-        "operationId": "getInventory",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful operation",
+            "description": "Internal server error",
             "schema": {
               "type": "object",
               "additionalProperties": {
@@ -209,35 +192,148 @@
         ]
       }
     },
-    "/store/order": {
+    "/register/{id_login}": {
+      "delete": {
+        "tags": [
+          "Register"
+        ],
+        "summary": "Deletes a user by ID number",
+        "description": "For a valid answer, try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+        "operationId": "deleteUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id_login",
+            "in": "path",
+            "description": "ID of a user that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully changed",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Inputs",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated User",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/login": {
       "post": {
         "tags": [
-          "store"
+          "Login"
         ],
-        "summary": "Place an order for a pet",
-        "description": "",
-        "operationId": "placeOrder",
+        "summary": "Return permission to access the system",
+        "description": "Returns authentication token",
+        "operationId": "login",
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
             "in": "body",
             "name": "body",
-            "description": "order placed for purchasing the pet",
+            "description": "User is responsible for manipulating the system",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Order"
+              "$ref": "#/definitions/postLogin"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
+            "description": "Login successfully",
             "schema": {
-              "$ref": "#/definitions/Order"
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
             }
+          },
+          "400": {
+            "description": "Invalid Inputs",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login/reset": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "summary": "User password recovery",
+        "description": "",
+        "operationId": "resetPassword",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Forwarding a new password by email",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postReset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "New password sent to your email"
           },
           "400": {
             "description": "Invalid Order"
@@ -245,61 +341,133 @@
         }
       }
     },
-    "/store/order/{orderId}": {
+    "/profession": {
       "get": {
         "tags": [
-          "store"
+          "Professions"
         ],
-        "summary": "Find purchase order by ID",
-        "description": "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions",
-        "operationId": "getOrderById",
+        "summary": "List all registered professions",
+        "description": "",
+        "operationId": "listProfessions",
         "produces": [
-          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Professions"
+        ],
+        "summary": "Create a new profession in the system",
+        "description": "Professions can be used to link a medical specialty",
+        "operationId": "createUser",
+        "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "orderId",
-            "in": "path",
-            "description": "ID of pet that needs to be fetched",
+            "in": "body",
+            "name": "body",
+            "description": "",
             "required": true,
-            "type": "integer",
-            "maximum": 10,
-            "minimum": 1,
-            "format": "int64"
+            "schema": {
+              "$ref": "#/definitions/postProfession"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Profession successfully registered"
+          },
+          "400": {
+            "description": "Invalid Inputs"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Professions"
+        ],
+        "summary": "Update a specific profession in the system",
+        "description": "For a valid answer, try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+        "operationId": "deleteProfession",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update profession object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putProfession"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
+            "description": "Profession successfully updated"
           },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "Invalid Inputs"
           },
-          "404": {
-            "description": "Order not found"
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
           }
-        }
-      },
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/profession/{id_profession}": {
       "delete": {
         "tags": [
-          "store"
+          "Professions"
         ],
-        "summary": "Delete purchase order by ID",
+        "summary": "Deletes a profession by ID number",
         "description": "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors",
         "operationId": "deleteOrder",
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
-            "name": "orderId",
+            "name": "id_profession",
             "in": "path",
-            "description": "ID of the order that needs to be deleted",
+            "description": "ID of a profession that needs to be deleted",
             "required": true,
             "type": "integer",
             "minimum": 1,
@@ -307,297 +475,693 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Order not found"
-          }
-        }
-      }
-    },
-    "/user": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "createUser",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Created user object",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/createWithArray": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Creates list of users with given input array",
-        "description": "",
-        "operationId": "createUsersWithArrayInput",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "List of user object",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/createWithList": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Creates list of users with given input array",
-        "description": "",
-        "operationId": "createUsersWithListInput",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "List of user object",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/login": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Logs user into the system",
-        "description": "",
-        "operationId": "loginUser",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "query",
-            "description": "The user name for login",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "password",
-            "in": "query",
-            "description": "The password for login in clear text",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "string"
-            },
-            "headers": {
-              "X-Rate-Limit": {
-                "type": "integer",
-                "format": "int32",
-                "description": "calls per hour allowed by the user"
-              },
-              "X-Expires-After": {
-                "type": "string",
-                "format": "date-time",
-                "description": "date in UTC when token expires"
-              }
-            }
+            "description": "successfully deleted"
           },
-          "400": {
-            "description": "Invalid username/password supplied"
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       }
     },
-    "/user/logout": {
+    "/client": {
       "get": {
         "tags": [
-          "user"
+          "Clients"
         ],
-        "summary": "Logs out current logged in user session",
+        "summary": "List all registered clients",
         "description": "",
-        "operationId": "logoutUser",
+        "operationId": "listClients",
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [],
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "200": {
+            "description": "ok"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
           }
-        }
-      }
-    },
-    "/user/{username}": {
-      "get": {
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
         "tags": [
-          "user"
+          "Clients"
         ],
-        "summary": "Get user by user name",
-        "description": "",
-        "operationId": "getUserByName",
+        "summary": "Create a new client in the system",
+        "description": "customers receive assistance from specialists who leave records in their histories",
+        "operationId": "createClient",
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
-            "name": "username",
-            "in": "path",
-            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "in": "body",
+            "name": "body",
+            "description": "",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/definitions/postClient"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Client successfully registered"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Update a specific client in the system",
+        "description": "For a valid answer, try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+        "operationId": "updateClient",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update client object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/putClient"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
+            "description": "Client successfully updated"
           },
-          "400": {
-            "description": "Invalid username supplied"
+          "401": {
+            "description": "Unauthenticated User"
           },
-          "404": {
-            "description": "User not found"
+          "500": {
+            "description": "Internal server error"
           }
-        }
-      },
-      "put": {
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/client/{id_client}": {
+      "delete": {
         "tags": [
-          "user"
+          "Clients"
         ],
-        "summary": "Updated user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "updateUser1",
+        "summary": "Deletes a profession by ID number",
+        "description": "For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+        "operationId": "deleteClient",
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
-            "name": "username",
+            "name": "id_client",
             "in": "path",
-            "description": "name that need to be updated",
+            "description": "ID of a client that needs to be deleted",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully deleted"
           },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/client/ {id_client}": {
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "List infos about a specific client",
+        "description": "",
+        "operationId": "listSpecificClient",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id_client",
+            "in": "path",
+            "description": "ID of a client that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/specialist": {
+      "get": {
+        "tags": [
+          "Specialists"
+        ],
+        "summary": "List all registered specialists",
+        "description": "",
+        "operationId": "listSpecialists",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Specialists"
+        ],
+        "summary": "Create a new specialist in the system",
+        "description": "specialists are doctors who provide care to their patients",
+        "operationId": "createSpecialist",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
           {
             "in": "body",
             "name": "body",
-            "description": "Updated user object",
+            "description": "",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/Specialist"
             }
           }
         ],
         "responses": {
-          "400": {
-            "description": "Invalid user supplied"
+          "201": {
+            "description": "Specialist successfully registered"
           },
-          "404": {
-            "description": "User not found"
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       },
-      "delete": {
+      "put": {
         "tags": [
-          "user"
+          "Specialists"
         ],
-        "summary": "Delete user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "deleteUser1",
+        "summary": "Update a specific specialist in the system",
+        "description": "For a valid answer, try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+        "operationId": "updateSpecialist",
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
-            "name": "username",
-            "in": "path",
-            "description": "The name that needs to be deleted",
+            "in": "body",
+            "name": "body",
+            "description": "Update specialist object",
             "required": true,
-            "type": "string"
+            "schema": {
+              "$ref": "#/definitions/Specialist"
+            }
           }
         ],
         "responses": {
-          "400": {
-            "description": "Invalid username supplied"
+          "200": {
+            "description": "Specialist successfully updated"
           },
-          "404": {
-            "description": "User not found"
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/specialist/{id_specialist}": {
+      "delete": {
+        "tags": [
+          "Specialists"
+        ],
+        "summary": "Deletes a specialist by ID number",
+        "description": "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors",
+        "operationId": "deleteSpecialist",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id_specialist",
+            "in": "path",
+            "description": "ID of a specialist that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully deleted"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/specialist/ {id_specialist}": {
+      "get": {
+        "tags": [
+          "Specialists"
+        ],
+        "summary": "List infos about a specific client",
+        "description": "",
+        "operationId": "listSpecificSpecialist",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id_specialist",
+            "in": "path",
+            "description": "ID of a specialist that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/attendance": {
+      "get": {
+        "tags": [
+          "Attendances"
+        ],
+        "summary": "List all registered attendances in the system",
+        "description": "",
+        "operationId": "listAttendace",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Attendances"
+        ],
+        "summary": "Create a new attendance in the system",
+        "description": "Attendances are created in the system when a customer schedules an appointment that involves a specialist",
+        "operationId": "createAttendance",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Attendance"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Attendance successfully registered"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Attendances"
+        ],
+        "summary": "Update a specific attedance in the system",
+        "description": "For a valid answer, try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+        "operationId": "updateAttendace",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update specialist object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Attendance"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Specialist successfully updated"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/attendance/{id_attendance}": {
+      "get": {
+        "tags": [
+          "Attendances"
+        ],
+        "summary": "List infos about a specific attendace",
+        "description": "",
+        "operationId": "listSpecificAttendance",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id_attendance",
+            "in": "path",
+            "description": "ID of a specialist that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/historic": {
+      "get": {
+        "tags": [
+          "Historics"
+        ],
+        "summary": "List all registered historics of attendances about the clients in the system",
+        "description": "",
+        "operationId": "listHistorics",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Historics"
+        ],
+        "summary": "Create a new historic in the system",
+        "description": "The medical history are created after an attendance is made, in this register is the place where the doctors can describe all the procedures performed",
+        "operationId": "createHistoric",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Historic"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Historic successfully registered"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Historics"
+        ],
+        "summary": "Update a specific historic in the system",
+        "description": "For a valid answer, try integer IDs with positive integer value. Negative or non-integer values will generate API errors",
+        "operationId": "updateHistoric",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update historic object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Historic"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Historic successfully updated"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/historic/{id_attendance}": {
+      "get": {
+        "tags": [
+          "Historics"
+        ],
+        "summary": "List infos about a specific historic",
+        "description": "",
+        "operationId": "listSpecificHistoric",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id_attendance",
+            "in": "path",
+            "description": "ID of a specialist historic that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "401": {
+            "description": "Unauthenticated User"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       }
     }
   },
   "securityDefinitions": {
     "agmed_auth": {
       "type": "oauth2",
-      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "authorizationUrl": "https://devs-agmed-afya.herokuapp.com/",
       "flow": "implicit",
       "scopes": {
-        "write:pets": "modify pets in your account",
-        "read:pets": "read your pets"
+        "write:clients": "modify resources in your account",
+        "read:clients": "read your resources"
       }
     },
     "api_key": {
@@ -607,172 +1171,176 @@
     }
   },
   "definitions": {
-    "Order": {
+    "postUser": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "petId": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "quantity": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "shipDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "status": {
-          "type": "string",
-          "description": "Order Status",
-          "enum": [
-            "placed",
-            "approved",
-            "delivered"
-          ]
-        },
-        "complete": {
-          "type": "boolean",
-          "default": false
-        }
-      },
-      "xml": {
-        "name": "Order"
-      }
-    },
-    "Category": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "xml": {
-        "name": "Category"
-      }
-    },
-    "User": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "username": {
-          "type": "string"
-        },
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "email": {
+        "user_email": {
           "type": "string"
         },
         "password": {
           "type": "string"
         },
-        "phone": {
-          "type": "string"
-        },
-        "userStatus": {
-          "type": "integer",
-          "format": "int32",
-          "description": "User Status"
-        }
-      },
-      "xml": {
-        "name": "User"
-      }
-    },
-    "Tag": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
+        "user_name": {
           "type": "string"
         }
-      },
-      "xml": {
-        "name": "Tag"
       }
     },
-    "Pet": {
+    "putUser": {
       "type": "object",
-      "required": [
-        "name",
-        "photoUrls"
-      ],
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "user_email": {
+          "type": "string"
         },
-        "category": {
-          "$ref": "#/definitions/Category"
+        "password": {
+          "type": "string"
         },
-        "name": {
-          "type": "string",
-          "example": "doggie"
-        },
-        "photoUrls": {
-          "type": "array",
-          "xml": {
-            "name": "photoUrl",
-            "wrapped": true
-          },
-          "items": {
-            "type": "string"
-          }
-        },
-        "tags": {
-          "type": "array",
-          "xml": {
-            "name": "tag",
-            "wrapped": true
-          },
-          "items": {
-            "$ref": "#/definitions/Tag"
-          }
-        },
-        "status": {
-          "type": "string",
-          "description": "pet status in the store",
-          "enum": [
-            "available",
-            "pending",
-            "sold"
-          ]
+        "user_name": {
+          "type": "string"
         }
-      },
-      "xml": {
-        "name": "Pet"
       }
     },
-    "ApiResponse": {
+    "postLogin": {
       "type": "object",
       "properties": {
-        "code": {
+        "user_email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "postReset": {
+      "type": "object",
+      "properties": {
+        "user_email": {
+          "type": "string"
+        }
+      }
+    },
+    "postProfession": {
+      "type": "object",
+      "properties": {
+        "profession_name": {
+          "type": "string"
+        }
+      }
+    },
+    "putProfession": {
+      "type": "object",
+      "properties": {
+        "id_profession": {
           "type": "integer",
           "format": "int32"
         },
-        "type": {
+        "profession_name": {
+          "type": "string"
+        }
+      }
+    },
+    "postClient": {
+      "type": "object",
+      "properties": {
+        "zip_code": {
           "type": "string"
         },
-        "message": {
+        "street": {
           "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "district": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string"
+        },
+        "uf": {
+          "type": "string"
+        },
+        "cpf": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "cellphone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "blood_type": {
+          "type": "string",
+          "enum": [
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "O+",
+            "O-",
+            "AB+",
+            "AB-"
+          ]
+        }
+      }
+    },
+    "putClient": {
+      "type": "object",
+      "properties": {
+        "id_client": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "zip_code": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "district": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string"
+        },
+        "uf": {
+          "type": "string"
+        },
+        "cpf": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "cellphone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "blood_type": {
+          "type": "string",
+          "enum": [
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "O+",
+            "O-",
+            "AB+",
+            "AB-"
+          ]
         }
       }
     }
