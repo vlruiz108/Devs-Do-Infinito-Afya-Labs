@@ -55,7 +55,7 @@ router.put('/', [
     const datetime = `${attendance_date} ${attendance_time}`;
     try{
         await db.updateAttendance(datetime, attendance_value, attendance_status, FK_id_med_reg, FK_id_specialist, id_attendance);
-        res.status(200).send({message: `Agendamento atualizado com sucesso!`});
+        res.status(201).send({message: `Agendamento atualizado com sucesso!`});
     }catch(err){
         res.status(500).send({message: `Houve um erro no banco de dados. ${err}`})
     }
