@@ -1,6 +1,6 @@
 import express from 'express';
 import {body, validationResult} from 'express-validator';
-import db from '../../modal/user/index.js';
+import db from '../../services/user/index.js';
 import {verifyJWT} from '../../middlewares/jwt.js';
 
 const router = express.Router();

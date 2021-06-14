@@ -13,7 +13,7 @@ export function create() {
     app.use('/', routes);
 
     app.get('/', (req, res) => {
-        res.send({
+        res.status(200).send({
             message: 'Welcome to AGmed - Afya-Labs',
             doc: 'https://devs-agmed-afya.herokuapp.com/docs' 
         });

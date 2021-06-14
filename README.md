@@ -5,13 +5,20 @@
 ![GitHub](https://img.shields.io/github/license/vlruiz108/Devs-Do-Infinito-Afya-Labs?style=plastic)
 ![NPM](https://img.shields.io/npm/l/express?style=plastic)
 
-
-
 # Devs-Do-Infinito-Afya-Labs
 
-## Criar um sistema para um consultório controlar o cadastro de seus clientes, atendimentos e prontuário dos pacientes.
+## :busts_in_silhouette: Autores
+- [Ana Vitória](https://github.com/anavieich)
+- [Felipe Spuza](https://github.com/FelipeSSac)
+- [João Pedro Fiorelli](https://github.com/JoaoFiorelli)
+- [Luis Felipe Santos](https://github.com/LFelipe-sb)
+- [Vanessa Ruiz](https://github.com/vlruiz108)
 
-### :round_pushpin:Backend
+
+
+## 🎯 Desafio: Criar um sistema para um consultório controlar o cadastro de seus clientes, atendimentos e prontuário dos pacientes.
+
+### :round_pushpin:🔚 Back-end
 
 🚀 Modelagem de dados para: criação de usuário, cadatro de clientes, cadastro de especialistas, cadastro de profissão, lançamento de dos atendimentos,
 registro de protuario e registro de histórico.
@@ -26,22 +33,20 @@ registro de protuario e registro de histórico.
 
 Tabela de conteúdos
 =================
+
 <!--ts-->
    * [Backend](#Backend)
    * [Features](#features)
    * [Instalação](#instalacao)
-   * [Como usar](#como-usar)
-      * [Pre Requisitos](#pre-requisitos)
-      * [Local files](#local-files)
-      * [Remote files](#remote-files)
-      * [Multiple files](#multiple-files)
-   * [Tests](#testes)
-   * [Swagger](#swagger)
+   * [Como rodar a aplicação](#como-rodar-a-aplicacao)
+   * [Como executar a suíte de testes](#como-executar-a-suite-de-testes)
+   * [Como executar a OpenApi](#como-executar-a-openapi)
    * [Tecnologias](#tecnologias)
+   * [Relacionado](#relacionado)
 <!--te-->
 
 <h4 align="center"> 
-	🚧  Application Select 🚀 Em construção...  🚧
+	
 </h4>
 
 ### :round_pushpin: Features
@@ -69,9 +74,9 @@ Instalar MySql Workbench: [MySql Workbench](https://dev.mysql.com/downloads/work
 
 ### Como rodar a aplicação
 
-- Certifique de ter um arquivo .env na pasta raiz com as configurações de banco de dados.
+Certifique de ter um arquivo .env na pasta raiz com as configurações de banco de dados.
 
-:triangular_flag_on_post: - Instale as Dependências
+:triangular_flag_on_post: Instale as Dependências
   
   ```bash
   yarn build
@@ -102,9 +107,8 @@ Instalar MySql Workbench: [MySql Workbench](https://dev.mysql.com/downloads/work
   npm test
   ```
 
-### Como executar o Swagger
-
-
+### Como executar a OpenApi
+[![dependencies Status](https://status.david-dm.org/gh/swagger-api/swagger-editor.svg)](https://david-dm.org/swagger-api/swagger-editor)
 
 
 Instalação
@@ -137,7 +141,9 @@ Exemplo
 swagger-markdown -i path/to/swagger/file.yaml
 ```
 
-Por padrão, ele criará o novo arquivo no mesmo diretório com o mesmo nome do arquivo swagger, mas com a extensão .md. Portanto, se o arquivo swagger for colocado no project/api-doc/swagger.yamlnovo arquivo será criado comoproject/api-doc/swagger
+Por padrão, ele criará o novo arquivo no mesmo diretório com o mesmo nome do arquivo swagger, mas com a extensão .md. 
+
+Portanto, se o arquivo swagger for colocado no project/api-doc/swagger.yamlnovo arquivo será criado comoproject/api-doc/swagger
 
 Você também pode usá-lo como um script npm em seu package.json:
 
@@ -160,7 +166,9 @@ npm run md-docs
 ### Relacionado
 
 
-* [swagger-markdown-ui](https://swagger-markdown-ui.netlify.app/))
+* [https://devs-agmed-afya.herokuapp.com](https://devs-agmed-afya.herokuapp.com)
+
+![logo AGMed](https://github.com/vlruiz108/Devs-Do-Infinito-Afya-Labs/blob/main/Logo.PNG)
 
 
 
